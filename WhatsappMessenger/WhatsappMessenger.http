@@ -1,4 +1,4 @@
-@WhatsappMessenger_HostAddress = http://localhost:5093
+@WhatsappMessenger_HostAddress = http://localhost:5267
 
 GET {{WhatsappMessenger_HostAddress}}/weatherforecast/
 Accept: application/json
