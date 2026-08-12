@@ -1,0 +1,2654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASP.NET Core & AI/ML Backend Roadmap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #090d16;
+            --card-bg: #111827;
+            --accent-primary: #6366f1; /* Indigo */
+            --accent-secondary: #10b981; /* Emerald */
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: #1f2937;
+            --easy-color: #10b981;
+            --medium-color: #f59e0b;
+            --hard-color: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-bottom: 1px solid var(--border-color);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #818cf8, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.75rem;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            display: flex;
+            min-height: calc(100vh - 180px);
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 300px;
+            background-color: #0f172a;
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            position: sticky;
+            top: 0;
+            height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 1rem 1.25rem;
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-btn:hover {
+            background-color: #1e293b;
+            color: var(--text-main);
+        }
+
+        .nav-btn.active {
+            background-color: var(--accent-primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section Headings */
+        h2.section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Cards & Styling */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+            border-color: #374151;
+        }
+
+        .flex-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .tag {
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tag.easy { background-color: rgba(16, 185, 129, 0.15); color: var(--easy-color); }
+        .tag.medium { background-color: rgba(245, 158, 11, 0.15); color: var(--medium-color); }
+        .tag.hard { background-color: rgba(239, 68, 68, 0.15); color: var(--hard-color); }
+
+        /* Code display */
+        pre {
+            background-color: #0b0f17;
+            padding: 1.25rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #1f293d;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: #e5e7eb;
+            margin: 1rem 0;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Checkboxes & Progress */
+        .progress-bar-container {
+            width: 100%;
+            height: 12px;
+            background-color: var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            border: 1px solid #374151;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            font-weight: 600;
+            user-select: none;
+        }
+
+        .checkbox-container input {
+            width: 1.3rem;
+            height: 1.3rem;
+            accent-color: var(--accent-secondary);
+            cursor: pointer;
+        }
+
+        /* Search input */
+        .search-box {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-box:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        /* Responsive Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .badge {
+            background-color: var(--accent-primary);
+            color: white;
+            font-size: 0.85rem;
+            padding: 0.3rem 0.65rem;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        /* Accordion for Days */
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1e293b;
+            padding: 1.25rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-bottom: 0.75rem;
+            transition: background-color 0.2s, transform 0.2s;
+            border: 1px solid var(--border-color);
+        }
+
+        .accordion-header:hover {
+            background-color: #2d3748;
+            transform: scale(1.005);
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 2rem;
+            background-color: #0f172a;
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .accordion-content.open {
+            display: block;
+        }
+
+        /* Detailed sections inside days */
+        .day-subsection {
+            margin-bottom: 1.75rem;
+            border-left: 4px solid var(--accent-primary);
+            padding-left: 1.25rem;
+        }
+
+        .day-subsection h4 {
+            color: #818cf8;
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .nested-list {
+            margin-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .nested-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 2rem 0;
+        }
+
+        .week-summary-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border: 1px dashed var(--accent-primary);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🎓 ASP.NET Core & AI/ML Backend Roadmap</h1>
+    <p>A comprehensive, interactive 30-day journey from C++ OOP fundamentals to building high-performance, secure REST Web APIs integrated with Python FastAPI models.</p>
+</header>
+
+<div class="container">
+    <div class="sidebar">
+        <button class="nav-btn active" onclick="switchTab('overview')">📋 Roadmap Overview</button>
+        <button class="nav-btn" onclick="switchTab('daily-roadmap')">📅 30-Day Daily Study</button>
+        <button class="nav-btn" onclick="switchTab('projects')">🚀 Capstone Projects</button>
+        <button class="nav-btn" onclick="switchTab('practice-bank')">📂 Practice Bank</button>
+        <button class="nav-btn" onclick="switchTab('interview-qa')">💬 Interview Q&A</button>
+    </div>
+
+    <div class="main-content">
+        <!-- Overview Tab -->
+        <div id="overview" class="tab-content active">
+            <h2 class="section-title">Roadmap Overview</h2>
+            
+            <div class="card">
+                <h3>⏰ Daily Study Split (1 Hour / Day)</h3>
+                <div class="grid-2" style="margin-top: 1.5rem;">
+                    <div style="border-left: 4px solid var(--accent-primary); padding-left: 1rem;">
+                        <h4 style="color: var(--accent-primary);">📚 Theory (20 Mins)</h4>
+                        <p style="color: var(--text-muted);">Understand concepts clearly, comparing C# and .NET structure to C++ pointer systems, STL layouts, and OOP behaviors.</p>
+                    </div>
+                    <div style="border-left: 4px solid var(--accent-secondary); padding-left: 1rem;">
+                        <h4 style="color: var(--accent-secondary);">💻 Coding Exercise (30 Mins)</h4>
+                        <p style="color: var(--text-muted);">Write clean C#, SQL queries, and integration code in the practice folders. Never copy-paste; write manually to build muscle memory.</p>
+                    </div>
+                    <div style="border-left: 4px solid var(--medium-color); padding-left: 1rem;">
+                        <h4 style="color: var(--medium-color);">🔄 Revision & Challenge (10 Mins)</h4>
+                        <p style="color: var(--text-muted);">Solve the Mini Challenge, review the common pitfalls lists, and tick off items in the day-wise checklists.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📈 Phase Breakdown</h3>
+                <div class="progress-bar-container" style="margin-top: 1rem;">
+                    <div id="overall-progress-bar" class="progress-bar"></div>
+                </div>
+                <p id="overall-progress-text" style="font-weight: 600; color: var(--accent-secondary); margin-bottom: 1.5rem;">0% of roadmap items tracked</p>
+                
+                <div class="grid-2">
+                    <div>
+                        <h4 style="color: #818cf8;">Phase 1: C# for ASP.NET Core</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Syntax migration from C++, collections, custom exceptions, file stream I/O, LINQ querying, async/await tasks, and basic dependency injection patterns.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #818cf8;">Phase 2: SQL Server</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Relational schema designs, CRUD operations, nested Joins, Indexes, constraints (CHECK, UNIQUE), Stored Procedures, and ACID transaction rollbacks.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #818cf8;">Phase 3: ASP.NET Core Fundamentals</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Program.cs pipeline structure, custom request/response middleware, attribute routing, configuration options, and ILogger integration.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #818cf8;">Phase 4: Web API Development</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">HTTP Verb mappings, model binding, input validation (FluentValidation), Swagger documentation, and global exception handling.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #818cf8;">Phase 5: Dapper Micro-ORM</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Dapper installation, mapping raw SQL queries to C# entities, invoking parameterized stored procedures, and implementing repository interfaces.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #818cf8;">Phase 6: JWT Security & Auth</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Stateless token authentication architectures, secret signing keys, token generation pipelines, and role-based policies.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #818cf8;">Phase 7: FastAPI & Model Integration</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Connecting ASP.NET Core gateway API to Python FastAPI predictive microservices using HttpClientFactory, file uploading, and model data serialization.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #818cf8;">Phase 8: Production Deployment</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Writing optimized multi-stage Dockerfiles, managing compose environments, securing CORS policies, and host setups.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Roadmap Tab -->
+        <div id="daily-roadmap" class="tab-content">
+            <h2 class="section-title">
+                <span>30-Day Daily Learning Calendar</span>
+                <span id="day-progress-badge" class="badge">0% Read</span>
+            </h2>
+            <div id="days-container">
+                <!-- Day list will be rendered by JS -->
+            </div>
+        </div>
+
+        <!-- Projects Tab -->
+        <div id="projects" class="tab-content">
+            <h2 class="section-title">5 Real-World Projects</h2>
+            <div id="projects-container">
+                <!-- Project details rendered by JS -->
+            </div>
+        </div>
+
+        <!-- Practice Bank Tab -->
+        <div id="practice-bank" class="tab-content">
+            <h2 class="section-title">Exercise Practice Bank</h2>
+            <input type="text" id="exercise-search" class="search-box" placeholder="Search exercises by title, category, description, or keyword..." onkeyup="filterExercises()">
+            
+            <div style="margin-bottom: 2rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <button class="nav-btn active" style="padding: 0.5rem 1rem;" onclick="filterExerciseCategory('all')">All</button>
+                <button class="nav-btn" style="padding: 0.5rem 1rem;" onclick="filterExerciseCategory('csharp')">C# (100)</button>
+                <button class="nav-btn" style="padding: 0.5rem 1rem;" onclick="filterExerciseCategory('sql')">SQL Server (50)</button>
+                <button class="nav-btn" style="padding: 0.5rem 1rem;" onclick="filterExerciseCategory('aspnet')">ASP.NET Core (50)</button>
+                <button class="nav-btn" style="padding: 0.5rem 1rem;" onclick="filterExerciseCategory('dapper')">Dapper (30)</button>
+                <button class="nav-btn" style="padding: 0.5rem 1rem;" onclick="filterExerciseCategory('jwt')">JWT Security (20)</button>
+                <button class="nav-btn" style="padding: 0.5rem 1rem;" onclick="filterExerciseCategory('integration')">API Integration (20)</button>
+                <button class="nav-btn" style="padding: 0.5rem 1rem;" onclick="filterExerciseCategory('deployment')">Deployment (10)</button>
+                <button class="nav-btn" style="padding: 0.5rem 1rem;" onclick="filterExerciseCategory('debugging')">Debugging (20)</button>
+            </div>
+
+            <div id="exercises-container">
+                <!-- Loaded via JavaScript -->
+            </div>
+        </div>
+
+        <!-- Interview QA Tab -->
+        <div id="interview-qa" class="tab-content">
+            <h2 class="section-title">50 Job-Ready Interview Q&As</h2>
+            <input type="text" id="qa-search" class="search-box" placeholder="Search questions or keywords..." onkeyup="filterQA()">
+            <div id="qa-container">
+                <!-- Loaded via JavaScript -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Tab switching
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.sidebar .nav-btn').forEach(btn => btn.classList.remove('active'));
+        
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    // Toggle accordions
+    function toggleAccordion(header) {
+        const content = header.nextElementSibling;
+        content.classList.toggle('open');
+        const arrow = header.querySelector('.arrow-indicator');
+        if (arrow) {
+            arrow.innerText = content.classList.contains('open') ? '▲' : '▼';
+        }
+    }
+
+    // Escape code tags
+    function escapeHtml(text) {
+        return text
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    // Local Storage tracking
+    function toggleTrackItem(id) {
+        const isChecked = document.getElementById(id).checked;
+        localStorage.setItem(id, isChecked);
+        updateProgress();
+    }
+
+    function loadTrackState() {
+        document.querySelectorAll('.track-checkbox').forEach(cb => {
+            const checked = localStorage.getItem(cb.id) === 'true';
+            cb.checked = checked;
+        });
+        updateProgress();
+    }
+
+    function updateProgress() {
+        const checkboxes = document.querySelectorAll('.track-checkbox');
+        if (checkboxes.length === 0) return;
+        
+        let checkedCount = 0;
+        checkboxes.forEach(cb => {
+            if (cb.checked) checkedCount++;
+        });
+
+        const percent = Math.round((checkedCount / checkboxes.length) * 100);
+        
+        // Update elements
+        const progressBars = [document.getElementById('overall-progress-bar')];
+        progressBars.forEach(bar => {
+            if (bar) bar.style.width = percent + '%';
+        });
+
+        const progressText = document.getElementById('overall-progress-text');
+        if (progressText) {
+            progressText.innerText = `${percent}% of tasks and activities completed (${checkedCount}/${checkboxes.length})`;
+        }
+
+        const badge = document.getElementById('day-progress-badge');
+        if (badge) {
+            badge.innerText = `${percent}% Tracked`;
+        }
+    }
+
+    // Data tables directly loaded here
+    const daysData = [
+        // --- Week 1 ---
+        {
+            day_num: 1,
+            title: "C# Syntax Differences from C++ & Memory Model",
+            objectives: [
+                "Understand C# compilation flow (.NET CLI -> CIL bytecode -> dynamic execution via JIT compiler).",
+                "Contrast C# reference-based memory model and Garbage Collection against C++ RAII and pointers.",
+                "Understand Namespace structure, Assembly metadata, and C# fundamental types."
+            ],
+            theory: [
+                "C# code compiles to Common Intermediate Language (CIL) bytecode, packed inside portable assemblies (.dll). The Just-In-Time (JIT) compiler compiles it to native CPU instructions at runtime.",
+                "Memory: C# handles heap memory automatically via a generational Garbage Collector (GC). Structs are value types (stack-allocated), whereas class instances are reference types (stored on the heap with pointers on the stack).",
+                "Syntax: No header files (.h) or forward declarations. Everything exists inside .cs files. Top-level statements are supported in modern C# to simplify Program.cs."
+            ],
+            coding_exercise: {
+                title: "Memory References and Variable Modification Console App",
+                instructions: "Create a program simulating reference swapping and value mutation inside structs vs classes.",
+                stub: `using System;
+
+class Person {
+    public string Name { get; set; }
+}
+
+struct Point {
+    public int X;
+    public int Y;
+}
+
+class Program {
+    static void Main() {
+        Person p1 = new Person { Name = "Alice" };
+        Person p2 = new Person { Name = "Bob" };
+        
+        Console.WriteLine($"Before Swap: p1={p1.Name}, p2={p2.Name}");
+        Swap(ref p1, ref p2); // ref acts like C++ pointer references
+        Console.WriteLine($"After Swap: p1={p1.Name}, p2={p2.Name}");
+    }
+    
+    static void Swap(ref Person a, ref Person b) {
+        Person temp = a;
+        a = b;
+        b = temp;
+    }
+}`
+            },
+            mini_challenge: "Modify a value type (Point struct) inside a modification method and observe why it does not change outside unless the 'ref' parameter modifier is used.",
+            common_mistakes: [
+                "Trying to use C++ delete operators on C# references. Memory is cleared solely by the Garbage Collector.",
+                "Confusing C# ref parameters with C++ pointer addresses."
+            ],
+            interview_questions: [
+                {q: "What is the difference between Value Types and Reference Types in C#?", a: "Value types (structs, primitives) hold value representations directly on the stack. Reference types (classes, interface objects) store memory addresses pointing to heap objects."},
+                {q: "How does Garbage Collection in .NET differ from C++ allocations?", a: "C++ requires deterministic memory cleanup via destructors. .NET handles this non-deterministically via an automated background sweep engine called the Garbage Collector."}
+            ],
+            homework: "Write a console app defining custom Rectangles containing X/Y point details. Mutate positions inside functions and output state.",
+            revision_checklist: [
+                "I understand compilation to CIL bytecode.",
+                "I understand how the ref keyword behaves.",
+                "I understand class vs struct memory boundaries."
+            ]
+        },
+        {
+            day_num: 2,
+            title: "C# Generics & Collections (List, Dictionary, Stack, Queue)",
+            objectives: [
+                "Learn generic parameters and generic constraints.",
+                "Compare C# dynamic List and Dictionary collection types with C++ STL vector and unordered_maps.",
+                "Avoid Boxing/Unboxing overheads in C# collections."
+            ],
+            theory: [
+                "Generics ensure type-safety at compile-time without runtime cast performance costs. Use the 'where' clause to define generic constraints (e.g. where T : class).",
+                "Collections: List<T> acts like C++ std::vector<T>. Dictionary<TKey, TValue> acts like std::unordered_map<TKey, TValue>.",
+                "Performance: Avoid generic-less Collections (like ArrayList) which convert value types to objects (boxing) and vice-versa (unboxing)."
+            ],
+            coding_exercise: {
+                title: "Generic Cache Store with Constraints",
+                instructions: "Implement a generic cache class that saves objects and retrieves them, restricting types to reference classes.",
+                stub: `using System;
+using System.Collections.Generic;
+
+public class CacheStore<TKey, TValue> where TValue : class {
+    private readonly Dictionary<TKey, TValue> _cache = new();
+    
+    public void Put(TKey key, TValue value) {
+        _cache[key] = value;
+    }
+    
+    public TValue Get(TKey key) {
+        return _cache.TryGetValue(key, out var val) ? val : null;
+    }
+}`
+            },
+            mini_challenge: "Build a generic task processor implementing Queue<T> to run simulation jobs sequentially.",
+            common_mistakes: [
+                "Using obsolete non-generic collections like ArrayList, causing boxing/unboxing overhead.",
+                "Not sizing Dictionary caches when dimensions are known beforehand."
+            ],
+            interview_questions: [
+                {q: "What is boxing and unboxing?", a: "Boxing is converting a value type (like int) to a reference type (object). Unboxing is casting it back. This causes heap allocation overhead."},
+                {q: "Explain generic constraints.", a: "Generic constraints restrict the type arguments that can be passed to a generic parameter using the 'where' keyword."}
+            ],
+            homework: "Implement a collection counter that counts duplicate words from an input string array using a Dictionary.",
+            revision_checklist: [
+                "I can write custom generic constraints.",
+                "I understand why ArrayList should be avoided.",
+                "I know the lookup complexity of a Dictionary."
+            ]
+        },
+        {
+            day_num: 3,
+            title: "Exception Handling & File Stream I/O",
+            objectives: [
+                "Write structured Exception handling blocks with try-catch-finally.",
+                "Use the IDisposable interface and C# using statements for resource disposal.",
+                "Implement FileStream and StreamWriter operations."
+            ],
+            theory: [
+                "Exceptions: Use specific exception catch blocks. The finally block always runs, making it critical for cleanup.",
+                "IDisposable: In C#, resource disposal is non-deterministic. To release files, DB connections, or sockets immediately, classes implement IDisposable. The C# 'using' statement calls `.Dispose()` automatically.",
+                "File I/O: System.IO classes map file system read/write streams asynchronously."
+            ],
+            coding_exercise: {
+                title: "Resource Safe File Logging Service",
+                instructions: "Create a logging class writing error outputs to text files inside resource-safe using blocks.",
+                stub: `using System;
+using System.IO;
+
+public class Logger {
+    private readonly string _filePath = "logs.txt";
+    
+    public void LogError(string message) {
+        try {
+            using (StreamWriter writer = new StreamWriter(_filePath, true)) {
+                writer.WriteLine($"[{DateTime.UtcNow}] ERROR: {message}");
+            }
+        }
+        catch (IOException ex) {
+            Console.WriteLine($"Disk write failed: {ex.Message}");
+        }
+    }
+}`
+            },
+            mini_challenge: "Create a custom validation exception and raise it when processing incorrect age ranges inside console inputs.",
+            common_mistakes: [
+                "Catching all exception types (catch Exception) without logging or handling them appropriately.",
+                "Forgetting using statements on streams, leaving locks on physical files."
+            ],
+            interview_questions: [
+                {q: "What is the difference between 'throw' and 'throw ex'?", a: "'throw' preserves the original call stack trace. 'throw ex' resets the stack trace pointer to the current line, losing debugging context."},
+                {q: "Explain the connection between using statements and IDisposable.", a: "A using block compiles into a try-finally block where the object's Dispose() method is invoked inside the finally block."}
+            ],
+            homework: "Write a program reading a CSV file and outputting lines while catching potential file-not-found exceptions.",
+            revision_checklist: [
+                "I know when to implement IDisposable.",
+                "I can write custom exceptions.",
+                "I understand stack trace preservation."
+            ]
+        },
+        {
+            day_num: 4,
+            title: "LINQ Query & Method Syntax",
+            objectives: [
+                "Master Query and Method syntax in Language Integrated Query.",
+                "Use filtering, projection, ordering, and aggregation.",
+                "Understand deferred execution vs immediate execution."
+            ],
+            theory: [
+                "LINQ integrates querying directly in C# syntax. Method syntax utilizes lambda functions and is preferred in Web APIs.",
+                "Deferred Execution: Methods like `.Where()` and `.Select()` construct query expression trees and do not run instantly. The query executes only when iterated (e.g. in a foreach loop) or when converted to a list using `.ToList()`.",
+                "IEnumerable vs IQueryable: IEnumerable evaluates queries in memory. IQueryable compiles expressions into SQL queries to run on database servers."
+            ],
+            coding_exercise: {
+                title: "Dataset Query & Manipulation",
+                instructions: "Filter a list of objects with specific constraints, sort them, and project properties to new objects using LINQ.",
+                stub: `using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class LogEntry {
+    public string Level { get; set; }
+    public string Message { get; set; }
+}
+
+public class Program {
+    public static void Main() {
+        var logs = new List<LogEntry> {
+            new LogEntry { Level = "ERROR", Message = "Null reference" },
+            new LogEntry { Level = "INFO", Message = "App started" },
+            new LogEntry { Level = "ERROR", Message = "Socket Timeout" }
+        };
+        
+        // Filter and project using Method Syntax
+        var errors = logs
+            .Where(l => l.Level == "ERROR")
+            .Select(l => l.Message)
+            .ToList(); // Forces immediate execution
+            
+        foreach (var msg in errors) {
+            Console.WriteLine($"Error recorded: {msg}");
+        }
+    }
+}`
+            },
+            mini_challenge: "Given a list of integers, write a single LINQ statement to find the average of all numbers that are greater than 50 and even.",
+            common_mistakes: [
+                "Calling ToList() midway through a query chain, which runs the query in memory early and wastes CPU.",
+                "Assuming LINQ modifies the source collection; it always returns a new query representation."
+            ],
+            interview_questions: [
+                {q: "What is deferred execution in LINQ?", a: "Query execution is delayed until the data is actually iterated over or evaluated. This allows query optimizations before compilation."},
+                {q: "What is the difference between Select and SelectMany?", a: "Select maps each element of a sequence to a new form. SelectMany flattens nested collections into a single one-dimensional sequence."}
+            ],
+            homework: "Write a query grouping student records by their class sections, counting students in each group.",
+            revision_checklist: [
+                "I understand method vs query syntax.",
+                "I know the difference between IEnumerable and IQueryable.",
+                "I understand why deferred execution is useful."
+            ]
+        },
+        {
+            day_num: 5,
+            title: "Async/Await Asynchronous Programming",
+            objectives: [
+                "Learn why asynchronous programming is critical for I/O scalability.",
+                "Write async methods returning Task and Task<T> types.",
+                "Avoid deadlocks and blocking calls like .Result or .Wait()."
+            ],
+            theory: [
+                "Async/Await: Releases threads back to the thread pool during waiting periods (like network or database calls). Once complete, a thread resumes execution.",
+                "Under the hood: The compiler generates a state machine representing the async method, tracking callbacks automatically.",
+                "Deadlocks: Using `.Result` or `.Wait()` in synchronous paths blocks the calling thread, preventing callbacks and causing deadlock bugs."
+            ],
+            coding_exercise: {
+                title: "Non-blocking Async Model Runner",
+                instructions: "Create an async method simulating model load delays using Task.Delay, returning mock results.",
+                stub: `using System;
+using System.Threading.Tasks;
+
+public class ModelService {
+    public async Task<string> PredictAsync(float[] inputs) {
+        Console.WriteLine("Executing model predictions...");
+        
+        // Simulates async computation / network delay
+        await Task.Delay(1500); 
+        
+        return "Classification: Class_A, Confidence: 0.94";
+    }
+}`
+            },
+            mini_challenge: "Write a console app executing 3 async prediction tasks concurrently using Task.WhenAll.",
+            common_mistakes: [
+                "Using blocking calls (Task.Result or Task.Wait) instead of await, which can cause thread pools to freeze.",
+                "Using 'async void' (which is hard to catch exceptions on) instead of returning Task."
+            ],
+            interview_questions: [
+                {q: "Why is async/await not the same as multithreading?", a: "Asynchronous code is about non-blocking I/O and releasing threads back to the pool. Multithreading runs tasks concurrently across multiple CPU threads."},
+                {q: "Why should you avoid 'async void'?", a: "Exceptions in async void methods cannot be caught by try-catch blocks and will crash the entire application process."}
+            ],
+            homework: "Create an async service loading data from 3 separate fake databases, measuring performance benefits over sequential loading.",
+            revision_checklist: [
+                "I understand state machine compilations.",
+                "I know when to return Task vs Task<T>.",
+                "I know how to resolve task deadlock issues."
+            ]
+        },
+        {
+            day_num: 6,
+            title: "Delegates, events, and lambda expressions",
+            objectives: [
+                "Understand delegates as type-safe C++ function pointers.",
+                "Use Action, Func, and Predicate generic delegates.",
+                "Publish and subscribe to custom events."
+            ],
+            theory: [
+                "Delegates: Object-oriented, type-safe references to methods. In C++, you had function pointers. In C#, a delegate is a class wrapping a method pointer.",
+                "Built-in Delegates: Func<T, TResult> (takes params, returns value), Action<T> (takes params, returns void), Predicate<T> (takes param, returns bool).",
+                "Lambda Expressions: Concise way to write inline methods (e.g. `(a, b) => a + b`).",
+                "Events: Uses publisher-subscriber model built directly on top of multicast delegates."
+            ],
+            coding_exercise: {
+                title: "Custom Event Logger System",
+                instructions: "Implement a service class publishing events when predictions finish, allowing console loggers to subscribe to notifications.",
+                stub: `using System;
+
+public class PredictionEngine {
+    // Define delegate and event
+    public event Action<string> OnPredictionCompleted;
+    
+    public void RunPrediction() {
+        Console.WriteLine("Running inference...");
+        // Invoke subscribers
+        OnPredictionCompleted?.Invoke("Success: Confidence 0.89");
+    }
+}
+
+class Program {
+    static void Main() {
+        var engine = new PredictionEngine();
+        engine.OnPredictionCompleted += msg => Console.WriteLine($"Log: {msg}");
+        engine.RunPrediction();
+    }
+}`
+            },
+            mini_challenge: "Rewrite a function using custom delegate signatures to use built-in Func and Action generic types.",
+            common_mistakes: [
+                "Forgetting to unsubscribe (-=) from events, causing memory leaks.",
+                "Invoking delegates without checking for null pointers."
+            ],
+            interview_questions: [
+                {q: "What is a delegate and why are Func/Action useful?", a: "A delegate holds references to methods. Func and Action are built-in delegates that let you pass methods as arguments without writing custom delegate definitions."},
+                {q: "What is a multicast delegate?", a: "A delegate that points to multiple methods sequentially. When invoked, all attached methods run in the order they were added (`+=` operator)."}
+            ],
+            homework: "Implement a simulated payment processing engine with an event `OnPaymentCompleted`. Subscribe a invoice generator and SMS notifier to it.",
+            revision_checklist: [
+                "I know the signature differences between Func and Action.",
+                "I can write lambda operations.",
+                "I know how events differ from raw delegates."
+            ]
+        },
+        {
+            day_num: 7,
+            title: "Week 1 Review, Debugging & Mini Project",
+            objectives: [
+                "Consolidate Phase 1 C# syntax transformations.",
+                "Build a complete in-memory console system.",
+                "Resolve async deadlock challenges."
+            ],
+            theory: [
+                "Review the differences between C++ stack/heap allocation and C# garbage collection.",
+                "Verify exception handling flows and ensure resource disposal is managed using 'using' statements.",
+                "Confirm that async code does not use blocking constructs like `.Result`."
+            ],
+            coding_exercise: {
+                title: "Mini Project: Student In-Memory Cache API Simulator",
+                instructions: "Write a console app containing classes, interfaces, generic cache stores, and async file writers to log student profiles.",
+                stub: `using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+public interface IStudentService {
+    Task SaveStudentAsync(string name, int age);
+}
+
+// Complete implementation here...`
+            },
+            mini_challenge: "Find the bug: Fix a code sample where an async task throws an error, but the application crashes because it was called as an 'async void' method.",
+            common_mistakes: [
+                "Ignoring nested task exception captures.",
+                "Using non-thread-safe collection classes in multi-threaded contexts."
+            ],
+            interview_questions: [
+                {q: "How does C# manage unmanaged resources without direct destructors?", a: "C# manages unmanaged resources through implementation of the IDisposable interface inside classes and invoking the resource cleanup using 'using' statements."},
+                {q: "What is the role of assembly manifest in C#?", a: "An assembly manifest contains metadata about identity, version, security details, and references to external libraries or files needed by the application."}
+            ],
+            homework: "Refactor your cached student manager application to load parameters from a local configuration text file.",
+            revision_checklist: [
+                "I completed the Student In-Memory Cache project.",
+                "I can identify and resolve thread deadlock bugs.",
+                "I understand IDisposable implementation patterns."
+            ]
+        },
+
+        // --- Week 2 ---
+        {
+            day_num: 8,
+            title: "SQL Server Basics & Normalization Schema",
+            objectives: [
+                "Learn relational database design concepts.",
+                "Understand keys, indexes, and referential integrity constraints.",
+                "Convert schemas into 1NF, 2NF, and 3NF configurations."
+            ],
+            theory: [
+                "Relational Schema: Models entity properties as tables. A Primary Key (PK) uniquely identifies a row. A Foreign Key (FK) maps links to PKs of other tables.",
+                "Referential Integrity: Ensures child records cannot point to non-existent parent records (cascading actions like ON DELETE CASCADE control delete propagation).",
+                "Normalization: Process of structural organization to prevent redundancy: 1NF (atomic values, no repeating columns), 2NF (meet 1NF, ensure full functional dependency on the PK), 3NF (meet 2NF, ensure transitive dependencies are eliminated)."
+            ],
+            coding_exercise: {
+                title: "Database Schema Design Script",
+                instructions: "Write schema tables containing PK, FK, and unique checks representing student enrollments.",
+                stub: `CREATE DATABASE StudentSystem;
+GO
+USE StudentSystem;
+
+CREATE TABLE Students (
+    StudentID INT PRIMARY KEY IDENTITY(1,1),
+    FirstName NVARCHAR(50) NOT NULL,
+    LastName NVARCHAR(50) NOT NULL,
+    Email NVARCHAR(100) UNIQUE NOT NULL,
+    Age INT CHECK (Age >= 16)
+);
+
+CREATE TABLE Courses (
+    CourseID INT PRIMARY KEY IDENTITY(1,1),
+    Title NVARCHAR(100) NOT NULL,
+    Credits INT CHECK (Credits BETWEEN 1 AND 6)
+);`
+            },
+            mini_challenge: "Add a mapping table for a many-to-many relationship mapping Students to Courses with composite primary keys.",
+            common_mistakes: [
+                "Failing to index foreign key columns, causing queries to slow down as database size grows.",
+                "Using duplicate, non-atomic data rows (violating 1NF)."
+            ],
+            interview_questions: [
+                {q: "What is the difference between Primary Key and Unique Key?", a: "A Primary Key uniquely identifies a record and cannot accept NULL values. A Unique Key enforces unique attributes but allows a single NULL value."},
+                {q: "Explain 1NF, 2NF, and 3NF database normalization.", a: "1NF requires atomic attributes and no duplicate fields. 2NF requires 1NF compliance and no partial dependencies. 3NF requires 2NF compliance and no transitive dependency on non-key columns."}
+            ],
+            homework: "Create database tables representing warehouse inventories with check constraints on stock counts.",
+            revision_checklist: [
+                "I can write schema tables with foreign keys.",
+                "I understand 3NF relational logic.",
+                "I know the performance impact of referential integrity rules."
+            ]
+        },
+        {
+            day_num: 9,
+            title: "SQL CRUD & Advanced Filtering",
+            objectives: [
+                "Write INSERT, SELECT, UPDATE, and DELETE operations.",
+                "Filter queries using LIKE, IN, BETWEEN, and null checks.",
+                "Group query results using GROUP BY and HAVING filters."
+            ],
+            theory: [
+                "CRUD operations form the basis of API database logic.",
+                "Filtering: WHERE filters source records before grouping. HAVING filters grouped rows after aggregation functions are evaluated.",
+                "Aggregations: Use functions like COUNT, SUM, AVG, and MIN/MAX to summarize query outputs."
+            ],
+            coding_exercise: {
+                title: "Filtered Student Selection Query",
+                instructions: "Select course credits statistics, grouping rows by title while filtering using HAVING.",
+                stub: `-- Seed test data
+INSERT INTO Courses (Title, Credits) VALUES ('ML Basics', 4), ('Web API Dev', 3);
+
+-- Select aggregation with grouping filters
+SELECT Title, SUM(Credits) AS TotalCredits
+FROM Courses
+GROUP BY Title
+HAVING SUM(Credits) >= 3;`
+            },
+            mini_challenge: "Write a query selecting students registered in the current month who have 'gmail' domains in their emails.",
+            common_mistakes: [
+                "Using DELETE statements without a WHERE clause, which deletes all data in the table.",
+                "Trying to filter aggregated column aliases in WHERE blocks instead of using HAVING."
+            ],
+            interview_questions: [
+                {q: "What is the difference between WHERE and HAVING?", a: "WHERE filters rows before aggregations are computed. HAVING filters aggregated group rows after calculations are processed."},
+                {q: "Explain the difference between DELETE and TRUNCATE.", a: "DELETE is a DML operation that removes specific rows based on conditions and writes logs for each deleted row. TRUNCATE is a DDL operation that clears the entire table by deallocating pages, running much faster and bypassing individual logs."}
+            ],
+            homework: "Insert dummy grade records and query student averages, sorting results in descending order.",
+            revision_checklist: [
+                "I can write insert and update statements.",
+                "I understand how GROUP BY works.",
+                "I know when to use HAVING."
+            ]
+        },
+        {
+            day_num: 10,
+            title: "Relational Joins & Data Assembly",
+            objectives: [
+                "Master merging data across relational tables using Joins.",
+                "Analyze INNER, LEFT, RIGHT, FULL, and CROSS joins.",
+                "Use self-joins to manage hierarchical table layouts."
+            ],
+            theory: [
+                "INNER JOIN returns rows where matching values exist in both tables.",
+                "LEFT JOIN returns all records from the left table, mapping matching rows on the right. Columns are populated with NULL if no match exists.",
+                "Self Joins: Query table hierarchies by joining tables onto copies of themselves."
+            ],
+            coding_exercise: {
+                title: "Query Registered Student Details",
+                instructions: "Write a join query displaying student names alongside their registered courses through intermediate join tables.",
+                stub: `-- Select students matching registered courses
+SELECT s.FirstName, s.LastName, c.Title
+FROM Students s
+INNER JOIN StudentCourses sc ON s.StudentID = sc.StudentID
+INNER JOIN Courses c ON sc.CourseID = c.CourseID;`
+            },
+            mini_challenge: "Write a LEFT JOIN query selecting all courses and student names, including courses that have no registered students.",
+            common_mistakes: [
+                "Not using table aliases (e.g. s, c), leading to duplicate columns syntax errors.",
+                "Using full outer joins when simple inner joins are sufficient, which impacts performance."
+            ],
+            interview_questions: [
+                {q: "What happens when you do a LEFT JOIN but the right table lacks matching rows?", a: "All columns retrieved from the right table will contain NULL values for those rows."},
+                {q: "What is the difference between UNION and UNION ALL?", a: "UNION merges data from two SELECT queries and removes duplicate records. UNION ALL merges results and keeps all duplicates, running faster as it skips the deduplication step."}
+            ],
+            homework: "Create an Employees table containing ManagerID pointers and write a self-join query returning supervisor names.",
+            revision_checklist: [
+                "I understand LEFT vs INNER JOIN.",
+                "I can write queries using table aliases.",
+                "I know the performance impact of multi-table joins."
+            ]
+        },
+        {
+            day_num: 11,
+            title: "Database Constraints & Index Tuning",
+            objectives: [
+                "Utilize constraints to enforce data integrity.",
+                "Learn how indexes speed up data querying.",
+                "Contrast Clustered Indexes vs Non-Clustered Indexes."
+            ],
+            theory: [
+                "Constraints (CHECK, DEFAULT, UNIQUE, NOT NULL) enforce data integrity at the database schema level.",
+                "Clustered Index: Physically sorts table rows based on key columns. Only one clustered index can exist per table (defaulting to the primary key).",
+                "Non-Clustered Index: A separate, index-mapped tree structure containing key values and pointers pointing to row data locations. Faster lookup, slower writes."
+            ],
+            coding_exercise: {
+                title: "Creating Non-Clustered Index for Email Searches",
+                instructions: "Write a script generating non-clustered indexes on search columns, verifying query execution plans.",
+                stub: `-- Generate Non-Clustered Index on Email
+CREATE NONCLUSTERED INDEX IX_Students_Email
+ON Students(Email);
+
+-- Execute search query
+SELECT * FROM Students WHERE Email = 'test@example.com';`
+            },
+            mini_challenge: "Add CHECK constraints restricting course titles from matching empty strings.",
+            common_mistakes: [
+                "Over-indexing tables (each index slows down INSERT, UPDATE, and DELETE operations as indexes must be updated).",
+                "Neglecting indexes on foreign keys."
+            ],
+            interview_questions: [
+                {q: "What is the main difference between Clustered and Non-Clustered indexes?", a: "A Clustered index physically sorts the data in the table itself. A Non-Clustered index stores key values with pointers pointing to real data storage locations."},
+                {q: "Why do indexes slow down database write operations?", a: "Because every time a write occurs (INSERT, UPDATE, DELETE), the SQL Server engine must update both the base table data and the associated index tree structures."}
+            ],
+            homework: "Write a script checking index fragmentation rates using system views.",
+            revision_checklist: [
+                "I can create a Non-Clustered index.",
+                "I know the performance impact of duplicate indexes.",
+                "I can explain table scan vs index seek."
+            ]
+        },
+        {
+            day_num: 12,
+            title: "Stored Procedures & SQL Functions",
+            objectives: [
+                "Write modular, reusable Stored Procedures in SQL Server.",
+                "Pass input and output parameters to procedures.",
+                "Contrast Stored Procedures against Scalar/Table-Valued Functions."
+            ],
+            theory: [
+                "Stored Procedures (SPs) are pre-compiled SQL queries stored on servers. They reduce network overhead, improve security, and prevent SQL injection.",
+                "Input vs Output parameters: Output parameters return values back to callers.",
+                "Functions: Scalar (returns a single value) vs Table-Valued (returns a virtual table). Functions cannot perform write operations (INSERT, UPDATE, DELETE) inside their execution boundaries, whereas Stored Procedures can."
+            ],
+            coding_exercise: {
+                title: "Stored Procedure with Output ID Parameters",
+                instructions: "Write a stored procedure that registers students, checks for duplicate email addresses, and returns the newly generated ID.",
+                stub: `CREATE PROCEDURE sp_RegisterStudent
+    @FirstName NVARCHAR(50),
+    @LastName NVARCHAR(50),
+    @Email NVARCHAR(100),
+    @NewID INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    IF EXISTS (SELECT 1 FROM Students WHERE Email = @Email)
+    BEGIN
+        SET @NewID = -1;
+        RETURN;
+    END
+
+    INSERT INTO Students (FirstName, LastName, Email)
+    VALUES (@FirstName, @LastName, @Email);
+    
+    SET @NewID = SCOPE_IDENTITY();
+END;`
+            },
+            mini_challenge: "Create a Table-Valued function returning a list of students enrolled in a specified course parameter.",
+            common_mistakes: [
+                "Writing business logic entirely in Stored Procedures instead of keeping it in C# backend APIs.",
+                "Using SPs with wildcard SELECT operations, causing network bottlenecks."
+            ],
+            interview_questions: [
+                {q: "Why are Stored Procedures pre-compiled?", a: "When created, their execution plans are generated and cached in memory. Subsequent calls skip parsing and compilation, executing instantly."},
+                {q: "Can you call a Stored Procedure inside a SQL Function?", a: "No, because SQL Functions are not allowed to perform operations that modify database state or run arbitrary logic, which SPs can execute."}
+            ],
+            homework: "Write a stored procedure executing course allocation logic, validating that a course exists before performing an insert to avoid foreign key failures.",
+            revision_checklist: [
+                "I can write a Stored Procedure with Output parameters.",
+                "I understand the difference between Functions and Stored Procedures.",
+                "I know how to call stored procedures using parameters."
+            ]
+        },
+        {
+            day_num: 13,
+            title: "Database Transactions & ACID Properties",
+            objectives: [
+                "Understand the ACID properties of database transactions.",
+                "Implement transactional execution blocks (Commit and Rollback).",
+                "Learn concurrency isolation levels and locking."
+            ],
+            theory: [
+                "ACID: Atomicity (all or nothing), Consistency (preserves schema rules), Isolation (independent execution transactions), Durability (persisted on disk).",
+                "Isolation Levels: Controls how databases handle concurrency anomalies (Dirty reads, Non-repeatable reads, Phantom reads) using locks. Common levels: Read Committed, Serializable, Snapshot.",
+                "Transaction flow: `BEGIN TRANSACTION`, process data, run `COMMIT` to save or `ROLLBACK` on errors."
+            ],
+            coding_exercise: {
+                title: "Safe Student Course Registration Transaction",
+                instructions: "Write a transaction executing course registrations and decrementing class capacity safely. Rollback transaction state on error.",
+                stub: `BEGIN TRANSACTION;
+
+BEGIN TRY
+    -- Insert mapping
+    INSERT INTO StudentCourses (StudentID, CourseID) VALUES (1, 1);
+    
+    -- Simulate validation failure or update constraint
+    -- UPDATE Courses SET Capacity = Capacity - 1 WHERE CourseID = 1;
+    
+    COMMIT TRANSACTION;
+    PRINT 'Transaction committed successfully.';
+END TRY
+BEGIN CATCH
+    ROLLBACK TRANSACTION;
+    PRINT 'Error occurred, transaction rolled back.';
+    THROW;
+END CATCH;`
+            },
+            mini_challenge: "Set transaction isolation level to SNAPSHOT and write a script explaining why snapshot isolation prevents transaction reading blocks.",
+            common_mistakes: [
+                "Forgetting to write COMMIT or ROLLBACK, leaving transactions open and locking database tables for other users.",
+                "Using nested transactions without tracking transaction counters, causing rollback mismatches."
+            ],
+            interview_questions: [
+                {q: "What does Atomicity mean in ACID?", a: "Atomicity ensures that all operations in a transaction either complete successfully together or none of them do, restoring database state back to its original condition on failure."},
+                {q: "What is a Deadlock in SQL Server?", a: "A deadlock occurs when two transactions hold locks on separate resources, and each transaction tries to acquire a lock on the resource held by the other, causing a circular block. SQL Server automatically kills one transaction as the deadlock victim."}
+            ],
+            homework: "Implement a transactional scenario processing student enrollment fees, verifying cash balances are checked and updated dynamically.",
+            revision_checklist: [
+                "I understand ACID rules.",
+                "I know when to write a ROLLBACK TRANSACTION block.",
+                "I can explain isolation levels."
+            ]
+        },
+        {
+            day_num: 14,
+            title: "Week 2 Review & Relational Schema Project",
+            objectives: [
+                "Review Relational Design principles and normalizations.",
+                "Build database schemas, table relations, and transaction logic.",
+                "Debug deadlocks and database performance blocks."
+            ],
+            theory: [
+                "Review data integrity patterns. Verify table definitions match normal forms.",
+                "Confirm that join queries write references correctly and indexes are built on primary/foreign keys.",
+                "Review transaction error catch blocks to ensure connections are closed correctly."
+            ],
+            coding_exercise: {
+                title: "Mini Project: E-Commerce Catalog & Orders Schema",
+                instructions: "Design a relational DB schema representing Customers, Products, Orders, and OrderItems. Create stored procedures with transactional rollback routines to place orders and update product inventory levels.",
+                stub: `-- Implement full schema creation scripts
+-- Build sp_PlaceOrder executing safety transaction logic.
+-- Seed mock data to verify schema behavior.`
+            },
+            mini_challenge: "Identify and optimize a query that is executing slow table scans by adding a composite non-clustered index on customer details.",
+            common_mistakes: [
+                "Failing to handle resource disposal in SQL catch blocks.",
+                "Creating transactional code without error tracing."
+            ],
+            interview_questions: [
+                {q: "What is database catalog in SQL Server?", a: "A database catalog contains metadata about database structures including schemas, tables, relationships, and permissions."},
+                {q: "How does index fragmentation affect database queries?", a: "Index fragmentation causes pages to split and data to scatter out of logical order. This forces extra physical disc I/O, slowing down read operations."}
+            ],
+            homework: "Optimize the E-Commerce catalog: Write a stored procedure retrieving top-selling products using LEFT JOIN aggregation queries.",
+            revision_checklist: [
+                "I built the E-Commerce Catalog & Orders Schema.",
+                "I optimized queries using custom indexes.",
+                "I understand ACID transaction mechanics."
+            ]
+        },
+
+        // --- Week 3 ---
+        {
+            day_num: 15,
+            title: "ASP.NET Core Project Structure & Startup",
+            objectives: [
+                "Understand ASP.NET Core project templates and layouts.",
+                "Learn the role of Program.cs and the HTTP middleware pipeline.",
+                "Configure development hosts using Kestrel."
+            ],
+            theory: [
+                "Project Structure: ASP.NET Core projects contain `Program.cs` (app startup, service registration, configuration), `appsettings.json` (JSON configurations), and Controllers/Models folders.",
+                "Program.cs: Replaces old Global.asax/Startup.cs in newer versions of .NET. Houses dependency injections and registers the middleware pipeline.",
+                "Middleware Pipeline: Request processing units executed sequentially. Requests enter the pipeline, pass through each middleware, hit the endpoint, and the response travels back through the pipeline."
+            ],
+            coding_exercise: {
+                title: "Inspect and Modify Program.cs Pipeline",
+                instructions: "Create a basic Program.cs structure showing builder patterns and middleware additions.",
+                stub: `var builder = WebApplication.CreateBuilder(args);
+
+// Register services
+builder.Services.AddControllers();
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment()) {
+    app.UseDeveloperExceptionPage();
+}
+
+app.UseRouting();
+app.UseAuthorization();
+app.MapControllers();
+
+app.Run();`
+            },
+            mini_challenge: "Create a new ASP.NET Core Web API template folder using the dotnet CLI command line.",
+            common_mistakes: [
+                "Placing UseAuthorization after MapControllers in Program.cs, breaking access security validation.",
+                "Manually writing heavy configurations instead of binding setting files."
+            ],
+            interview_questions: [
+                {q: "What is the purpose of Program.cs in ASP.NET Core?", a: "It sets up builder configurations, registers application dependencies in the DI container, and declares the HTTP middleware pipeline."},
+                {q: "What is Kestrel in ASP.NET Core?", a: "Kestrel is a cross-platform, high-performance web server implementation embedded inside ASP.NET Core applications by default."}
+            ],
+            homework: "Create an empty web app layout showing dependencies, and inspect launchSettings.json config.",
+            revision_checklist: [
+                "I understand builder patterns in .NET.",
+                "I know the location of port configs.",
+                "I can run apps using dotnet run."
+            ]
+        },
+        {
+            day_num: 16,
+            title: "Routing & Controller Basics",
+            objectives: [
+                "Understand Attribute-based and Conventional routing models.",
+                "Create API Controllers inheriting from ControllerBase.",
+                "Return HTTP status codes using ActionResult types."
+            ],
+            theory: [
+                "Controllers: Process HTTP requests and return responses. They inherit from `ControllerBase` (provides access to model validation state and helper methods for HTTP status codes).",
+                "Attribute Routing: Preferred for REST Web APIs. Directly maps endpoints using attributes (e.g., `[Route(\"api/[controller]\")]`, `[HttpGet]`, `[HttpPost]`).",
+                "Conventional Routing: Maps routes globally in Program.cs (standard in MVC apps, but less common in APIs)."
+            ],
+            coding_exercise: {
+                title: "Simple Welcome API Controller",
+                instructions: "Create a controller returning serialized data outputs and handling URL parameters.",
+                stub: `using Microsoft.AspNetCore.Mvc;
+
+[ApiController]
+[Route("api/[controller]")]
+public class HelloController : ControllerBase {
+    
+    [HttpGet]
+    public IActionResult GetWelcome() {
+        return Ok(new { message = "Welcome to ASP.NET Core API!" });
+    }
+    
+    [HttpGet("check/{id}")]
+    public IActionResult CheckID(int id) {
+        if (id <= 0) return BadRequest("Invalid ID parameter.");
+        return Ok($"Value validated: {id}");
+    }
+}`
+            },
+            mini_challenge: "Implement a POST controller endpoint accepting string payloads and returning 201 Created statuses.",
+            common_mistakes: [
+                "Inheriting from Controller instead of ControllerBase, which pulls in MVC View helpers that are unnecessary for Web APIs.",
+                "Using hardcoded paths inside controller method routes."
+            ],
+            interview_questions: [
+                {q: "What is the difference between Controller and ControllerBase?", a: "ControllerBase provides basic API actions helper classes. Controller inherits from ControllerBase, adding Razor view configurations which are unneeded in REST API APIs."},
+                {q: "What is Attribute Routing?", a: "Defining routing structures directly on top of classes and method signatures using HTTP verb parameters."}
+            ],
+            homework: "Write a Calculator controller exposing routes for addition and subtraction path arguments.",
+            revision_checklist: [
+                "I can build a ControllerBase API controller.",
+                "I know how to return ActionResult statuses.",
+                "I understand path parameters in routing."
+            ]
+        },
+        {
+            day_num: 17,
+            title: "Middleware Pipeline Customization",
+            objectives: [
+                "Understand request-response interception.",
+                "Write inline custom middleware configurations.",
+                "Create reusable Custom Middleware classes."
+            ],
+            theory: [
+                "Middleware classes intercept, inspect, or modify incoming HTTP requests and outgoing responses.",
+                "Each middleware chooses whether to pass the request to the next component in the pipeline (`next()`) or short-circuit the execution (e.g. if authentication fails).",
+                "Common uses: Exception handling, Request logging, Authentication checking, CORS configuration."
+            ],
+            coding_exercise: {
+                title: "Custom Time Execution Logging Middleware",
+                instructions: "Build a middleware component measuring request execution latency.",
+                stub: `using Microsoft.AspNetCore.Http;
+using System.Diagnostics;
+using System.Threading.Tasks;
+
+public class PerformanceMiddleware {
+    private readonly RequestDelegate _next;
+
+    public PerformanceMiddleware(RequestDelegate next) {
+        _next = next;
+    }
+
+    public async Task InvokeAsync(HttpContext context) {
+        var watch = Stopwatch.StartNew();
+        
+        // Pass request down the pipeline
+        await _next(context); 
+        
+        watch.Stop();
+        System.Console.WriteLine($"Request took {watch.ElapsedMilliseconds} ms to execute.");
+    }
+}`
+            },
+            mini_challenge: "Configure an inline middleware inside Program.cs checking for request validation headers.",
+            common_mistakes: [
+                "Short-circuiting the pipeline by forgetting to call `await _next(context)`.",
+                "Trying to edit HTTP response headers after the response stream has already started sending."
+            ],
+            interview_questions: [
+                {q: "Explain pipeline short-circuiting.", a: "If a middleware component decides not to call next(), it halts execution. It returns a response immediately, preventing subsequent middleware and controllers from running."},
+                {q: "How does app.Use differ from app.Run?", a: "app.Use can delegate calls to downstream components using next(). app.Run acts as a terminal middleware, short-circuiting executions."}
+            ],
+            homework: "Write a middleware class returning custom diagnostics logs.",
+            revision_checklist: [
+                "I can write custom middleware classes.",
+                "I understand the RequestDelegate signature.",
+                "I know how to order pipeline components."
+            ]
+        },
+        {
+            day_num: 18,
+            title: "Configuration Management & Options Pattern",
+            objectives: [
+                "Load configs from JSON files, environment variables, and secrets.",
+                "Query keys using the IConfiguration service interface.",
+                "Bind strongly-typed configurations using Options Patterns."
+            ],
+            theory: [
+                "Configuration: ASP.NET Core loads configs from JSON files (`appsettings.json`), environment variables, user secrets, and command arguments.",
+                "IConfiguration: Service interface used to fetch config values using string keys (e.g. `_config[\"Database:ConnectionString\"]`).",
+                "Options Pattern: Binds configuration blocks directly to strongly-typed C# classes, ensuring clean code and validation support."
+            ],
+            coding_exercise: {
+                title: "Reading Database Settings from Configuration",
+                instructions: "Add connection parameters in appsettings.json and access them dynamically in controllers.",
+                stub: `// appsettings.json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Database=TestDB;Integrated Security=True;"
+  }
+}
+
+// Controller
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+
+[ApiController]
+[Route("api/[controller]")]
+public class ConfigController : ControllerBase {
+    private readonly IConfiguration _config;
+    
+    public ConfigController(IConfiguration config) {
+        _config = config;
+    }
+    
+    [HttpGet]
+    public IActionResult GetDbString() {
+        var dbStr = _config.GetConnectionString("DefaultConnection");
+        return Ok(new { connection = dbStr });
+    }
+}`
+            },
+            mini_challenge: "Create a class matching a custom configuration section and bind it using builder.Services.Configure.",
+            common_mistakes: [
+                "Hardcoding credentials inside code files instead of configurations.",
+                "Failing to add fallback configurations for non-development environments."
+            ],
+            interview_questions: [
+                {q: "How does the Options pattern function?", a: "It maps configurations to classes, registering them in DI using IOptions<T> references."},
+                {q: "In what order are configuration providers resolved?", a: "Usually: appsettings.json -> appsettings.Environment.json -> User Secrets -> Environment Variables."}
+            ],
+            homework: "Configure access thresholds in appsettings and inspect them inside controller endpoints.",
+            revision_checklist: [
+                "I know how to query nested keys.",
+                "I can write strongly-typed configuration classes.",
+                "I understand options bindings."
+            ]
+        },
+        {
+            day_num: 19,
+            title: "Dependency Injection & Lifetimes",
+            objectives: [
+                "Decouple classes using Dependency Injection.",
+                "Register services as Transient, Scoped, and Singleton.",
+                "Prevent captive dependency leaks."
+            ],
+            theory: [
+                "Dependency Injection (DI): A design pattern that decouples classes by injecting dependencies instead of creating them with 'new'. ASP.NET Core has a built-in IoC (Inversion of Control) container.",
+                "Service Lifetimes:",
+                "1. Transient: Created every time they are requested. Ideal for lightweight, stateless services.",
+                "2. Scoped: Created once per HTTP request. Ideal for stateful services or database contexts.",
+                "3. Singleton: Created once on first request and shared across all subsequent requests. Ideal for caches.",
+                "Captive Dependency: Occurs when a long-lived service (Singleton) incorrectly captures a short-lived service (Scoped). Since the Singleton never dies, the Scoped service is kept alive indefinitely, leading to memory leaks and thread-safety bugs."
+            ],
+            coding_exercise: {
+                title: "Service Lifetimes Guid Logger",
+                instructions: "Register Transient, Scoped, and Singleton services and check how GUIDs behave across calls.",
+                stub: `using System;
+
+public interface ILifetime { Guid Id { get; } }
+public interface ITransient : ILifetime {}
+public interface IScoped : ILifetime {}
+public interface ISingleton : ILifetime {}
+
+public class Lifetime : ITransient, IScoped, ISingleton {
+    public Guid Id { get; } = Guid.NewGuid();
+}`
+            },
+            mini_challenge: "Inject all three lifetime classes into a single controller and analyze returned values.",
+            common_mistakes: [
+                "Injecting a Scoped DbContext inside a Singleton service (captive dependency), which can lead to database connection conflicts.",
+                "Using manual class instantiations ('new') inside controller actions instead of using DI registration."
+            ],
+            interview_questions: [
+                {q: "What is a captive dependency?", a: "A service lifetime mismatch where a service with a longer lifetime contains a dependency with a shorter lifetime (e.g. Scoped injected into Singleton)."},
+                {q: "How does Transient registration differ from Scoped?", a: "Transient instantiates a new instance for every dependency call. Scoped instantiates once per HTTP request, sharing it across that request."}
+            ],
+            homework: "Register mock ML model prediction implementations under interface contracts and inject them into controllers.",
+            revision_checklist: [
+                "I know the three main lifetimes.",
+                "I can identify captive dependency errors.",
+                "I understand how to register interfaces."
+            ]
+        },
+        {
+            day_num: 20,
+            title: "Structured Logging with ILogger & Serilog",
+            objectives: [
+                "Inject and use default ILogger inside API controllers.",
+                "Configure Serilog to output log streams.",
+                "Implement structured logging for search optimizations."
+            ],
+            theory: [
+                "Logging: Vital for production diagnostics. Default logs write text data. Structured logging records events as structured key-value pairs (JSON), making searches fast in log analytics engines (ElasticSearch, Datadog).",
+                "Serilog: A third-party library that replaces the built-in logger, outputting structured logs to files, databases, or cloud endpoints (sinks).",
+                "Log Levels: Trace, Debug, Information, Warning, Error, Critical."
+            ],
+            coding_exercise: {
+                title: "Logging Executions inside Controllers",
+                instructions: "Inject ILogger and write structured log calls tracing calculation inputs.",
+                stub: `using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+
+[ApiController]
+[Route("api/[controller]")]
+public class LogController : ControllerBase {
+    private readonly ILogger<LogController> _logger;
+    
+    public LogController(ILogger<LogController> logger) {
+        _logger = logger;
+    }
+    
+    [HttpGet("{id}")]
+    public IActionResult GetItem(int id) {
+        // Structured logging placeholder parameters
+        _logger.LogInformation("Retrieving data item with ID {ItemId}", id);
+        return Ok(id);
+    }
+}`
+            },
+            mini_challenge: "Install Serilog NuGet packages and configure JSON file output logging targets inside appsettings.",
+            common_mistakes: [
+                "Using string interpolation inside logging calls (e.g. `_logger.LogInformation($"ID {id}");`), which bypasses structured indexing.",
+                "Exposing sensitive database connections or customer passwords in plain text logs."
+            ],
+            interview_questions: [
+                {q: "Why is structured logging preferred over plain text logging?", a: "It saves logs as searchable JSON objects. Log collectors can then index, search, and filter based on parameters (like ItemId) instead of searching plain text strings."},
+                {q: "Name three standard Log levels in .NET.", a: "Information, Warning, Error, Critical, Debug."}
+            ],
+            homework: "Implement custom logging middleware to log details for every incoming request.",
+            revision_checklist: [
+                "I can write structured log statements.",
+                "I know when to use Serilog.",
+                "I understand logging levels."
+            ]
+        },
+        {
+            day_num: 21,
+            title: "Week 3 Review & Web API Service Setup",
+            objectives: [
+                "Review ASP.NET Core project setup and configurations.",
+                "Resolve DI issues and configure logging output structures.",
+                "Execute API pipeline validations."
+            ],
+            theory: [
+                "Review registration patterns. Double-check service lifetime dependencies.",
+                "Check that configurations load environment properties properly.",
+                "Ensure that logging levels don't leak debug information in production environments."
+            ],
+            coding_exercise: {
+                title: "Mini Project: Configurable Logger Web API",
+                instructions: "Create an API with a custom logger middleware that logs request execution times, routes, and client IP addresses. Inject a configurable service to dynamically return custom greeting text depending on appsettings.json setup.",
+                stub: `// Create custom middleware class
+// Write Program.cs registering services
+// Build controller reading configuration mapping configurations.`
+            },
+            mini_challenge: "Identify a dependency error in code where a transient client creates a scoped db context parameter inside a singleton logger, and refactor it.",
+            common_mistakes: [
+                "Forgetting exception handler middleware configurations.",
+                "Failing to structure environment settings."
+            ],
+            interview_questions: [
+                {q: "Explain Dependency Injection scopes in multi-threaded environments.", a: "Each HTTP request represents an isolated execution thread context. Scoped dependencies are instantiated once per thread context and are disposed when the request concludes."},
+                {q: "Can you configure custom middleware using extension methods?", a: "Yes. You can write extension functions extending `IApplicationBuilder` to build neat calls like `app.UseCustomLogging();`."}
+            ],
+            homework: "Extend the logger service: Add configuration options verifying that headers contain required API validation keys before allowing execution.",
+            revision_checklist: [
+                "I built the Configurable Logger Web API.",
+                "I resolved service lifetime errors.",
+                "I understand the middleware invocation model."
+            ]
+        },
+
+        // --- Week 4 ---
+        {
+            day_num: 22,
+            title: "REST API Principles & HTTP Verbs",
+            objectives: [
+                "Design RESTful resources using correct routes.",
+                "Map CRUD operations to HTTP GET, POST, PUT, and DELETE.",
+                "Return appropriate HTTP status codes."
+            ],
+            theory: [
+                "REST (Representational State Transfer): An architectural style using HTTP protocols to manipulate resources. Resources are identified by URIs (e.g. `/api/students`).",
+                "HTTP Verbs:",
+                "- GET: Read resources (Idempotent, safe).",
+                "- POST: Create resource (Non-idempotent).",
+                "- PUT: Replace resource completely (Idempotent).",
+                "- DELETE: Remove resource (Idempotent).",
+                "Status Codes: 200 (OK), 201 (Created), 400 (Bad Request), 401 (Unauthorized), 404 (Not Found), 500 (Server Error)."
+            ],
+            coding_exercise: {
+                title: "Student REST Controller CRUD",
+                instructions: "Write a controller representing student resources with matching HTTP verb action handlers.",
+                stub: `using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+
+[ApiController]
+[Route("api/[controller]")]
+public class StudentsController : ControllerBase {
+    private static readonly List<string> _students = new() { "Alice", "Bob" };
+    
+    [HttpGet]
+    public IActionResult GetAll() => Ok(_students);
+    
+    [HttpPost]
+    public IActionResult Create([FromBody] string name) {
+        _students.Add(name);
+        return CreatedAtAction(nameof(GetAll), new { name = name });
+    }
+}`
+            },
+            mini_challenge: "Implement PUT and DELETE endpoints modifying the student list based on list index values.",
+            common_mistakes: [
+                "Using POST endpoints for all actions instead of matching operations to correct HTTP verbs.",
+                "Returning a 200 OK status when search results are Null (always return 404 Not Found)."
+            ],
+            interview_questions: [
+                {q: "What does idempotency mean in REST?", a: "Executing an idempotent operation multiple times returns the same result and state. GET, PUT, and DELETE are idempotent; POST is not."},
+                {q: "What is the difference between PUT and PATCH?", a: "PUT replaces the resource entirely. PATCH makes partial updates."}
+            ],
+            homework: "Design catalog endpoints mapping routing rules for categories and items.",
+            revision_checklist: [
+                "I know the standard HTTP verbs.",
+                "I can return 201 status codes.",
+                "I know why GET should not modify database state."
+            ]
+        },
+        {
+            day_num: 23,
+            title: "Model Binding & Input Validation",
+            objectives: [
+                "Bind payloads using [FromBody], [FromRoute], and [FromQuery].",
+                "Implement validation rules using DataAnnotations.",
+                "Integrate FluentValidation."
+            ],
+            theory: [
+                "Model Binding: Maps HTTP request fields (body JSON, query parameters, route parameters) to C# method arguments.",
+                "Validation: Validation constraints check input validity before running database operations. DataAnnotations use attributes (e.g. `[Required]`). FluentValidation is a popular library that separates validation logic from models, keeping code clean."
+            ],
+            coding_exercise: {
+                title: "User Register Payload DTO Validation",
+                instructions: "Create a User Registration DTO with DataAnnotations validation checks.",
+                stub: `using System.ComponentModel.DataAnnotations;
+
+public class RegisterDto {
+    [Required]
+    [EmailAddress]
+    public string Email { get; set; }
+    
+    [Required]
+    [StringLength(100, MinimumLength = 6, ErrorMessage = "Password must be at least 6 characters.")]
+    public string Password { get; set; }
+}`
+            },
+            mini_challenge: "Install FluentValidation and write a validator class for student profiles, ensuring age is greater than 16.",
+            common_mistakes: [
+                "Skipping input validation and passing inputs directly to database engines.",
+                "Failing to check ModelState.IsValid in non-ApiController projects."
+            ],
+            interview_questions: [
+                {q: "How does [ApiController] affect model validation?", a: "It automatically evaluates ModelState validation rules. If validation fails, it returns a 400 Bad Request response with details without executing the controller method."},
+                {q: "Explain [FromQuery] vs [FromRoute].", a: "[FromQuery] parses query string parameters from URLs (e.g. ?page=2). [FromRoute] parses URL path segments (e.g. /students/5)."}
+            ],
+            homework: "Implement validation classes verifying that product SKU codes match specific patterns (e.g., PROD-XXXX).",
+            revision_checklist: [
+                "I understand model binders.",
+                "I can configure FluentValidation.",
+                "I know how to write custom regex validations."
+            ]
+        },
+        {
+            day_num: 24,
+            title: "Swagger & Global Exception Handling",
+            objectives: [
+                "Document APIs using Swagger/OpenAPI.",
+                "Add XML comments to Swagger UIs.",
+                "Implement custom Global Exception Handling Middleware."
+            ],
+            theory: [
+                "Swagger: Automatically generates interactive documentation by inspecting controller attributes, allowing developers to test API endpoints directly from the browser.",
+                "Global Exceptions: Instead of using try-catch blocks in every controller method, a single custom middleware catches unhandled exceptions globally. This keeps code clean, logs errors, and returns a standardized JSON error format (like RFC 7807 Problem Details) to the client without exposing sensitive stack traces."
+            ],
+            coding_exercise: {
+                title: "Global Exception Handler Middleware",
+                instructions: "Create exception handling middleware capturing all exceptions and returning standard JSON outputs.",
+                stub: `using Microsoft.AspNetCore.Http;
+using System;
+using System.Text.Json;
+using System.Threading.Tasks;
+
+public class ExceptionMiddleware {
+    private readonly RequestDelegate _next;
+    
+    public ExceptionMiddleware(RequestDelegate next) {
+        _next = next;
+    }
+    
+    public async Task InvokeAsync(HttpContext context) {
+        try {
+            await _next(context);
+        }
+        catch (Exception ex) {
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = 500;
+            
+            var payload = new { error = "Internal server error", message = ex.Message };
+            await context.Response.WriteAsync(JsonSerializer.Serialize(payload));
+        }
+    }
+}`
+            },
+            mini_challenge: "Enable XML documentation inside your project file to populate Swagger with model property summaries.",
+            common_mistakes: [
+                "Exposing raw database exceptions or full system stack traces in production API responses.",
+                "Leaving Swagger UI routes open in production environments, exposing APIs to unauthorized scanning."
+            ],
+            interview_questions: [
+                {q: "What is Swagger/OpenAPI?", a: "A set of tools that inspect code metadata and attributes to generate interactive, self-updating API documentation."},
+                {q: "Why is global exception handling preferred over local try-catch blocks?", a: "It centralizes error handling, prevents code duplication, and ensures APIs return consistent JSON error formats on failures."}
+            ],
+            homework: "Refactor your exception handling middleware to return a 400 Bad Request status code on validation errors.",
+            revision_checklist: [
+                "I can configure Swagger pipelines.",
+                "I understand Exception Middleware.",
+                "I can write XML documentation comments."
+            ]
+        },
+        {
+            day_num: 25,
+            title: "Dapper Installation & CRUD Mappings",
+            objectives: [
+                "Install Dapper NuGet packages.",
+                "Create database connections using SqlConnection.",
+                "Perform high-performance CRUD queries using Dapper."
+            ],
+            theory: [
+                "ORM (Object Relational Mapper) maps database records to C# objects.",
+                "Dapper is a high-performance micro-ORM. It extends `IDbConnection` with methods like `QueryAsync` and `ExecuteAsync`, mapping query results directly to C# models with speeds close to raw ADO.NET.",
+                "Security: Prevent SQL Injection by using parameterized queries. Never use string interpolation to construct SQL strings."
+            ],
+            coding_exercise: {
+                title: "Dapper Retrieve Students Query",
+                instructions: "Write a repository method querying students using Dapper.",
+                stub: `using Dapper;
+using Microsoft.Data.SqlClient;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public class Student {
+    public int StudentID { get; set; }
+    public string FirstName { get; set; }
+}
+
+public class StudentRepo {
+    private readonly string _connection = "Server=localhost;Database=StudentDB;Trusted_Connection=True;";
+    
+    public async Task<IEnumerable<Student>> GetStudents() {
+        using var conn = new SqlConnection(_connection);
+        return await conn.QueryAsync<Student>("SELECT StudentID, FirstName FROM Students");
+    }
+}`
+            },
+            mini_challenge: "Write an insert operation using `conn.ExecuteAsync` with anonymous parameter mappings.",
+            common_mistakes: [
+                "Using string interpolation inside raw SQL strings, which leaves the database vulnerable to SQL injection attacks.",
+                "Forgetting to wrap connections inside using scopes, which leaves database connections open."
+            ],
+            interview_questions: [
+                {q: "Why is Dapper called a micro-ORM?", a: "It only handles mapping SQL query results to objects. It does not track changes, generate SQL, or manage migrations, keeping it lightweight and fast."},
+                {q: "How do you pass parameters to queries in Dapper?", a: "By passing an anonymous object (e.g. `new { Id = studentId }`) which maps properties directly to SQL parameter placeholders (`@Id`)."}
+            ],
+            homework: "Implement UPDATE and DELETE operations using Dapper connection methods.",
+            revision_checklist: [
+                "I can establish SQL connections.",
+                "I know the performance difference between EF Core and Dapper.",
+                "I know how to write parameterized queries."
+            ]
+        },
+        {
+            day_num: 26,
+            title: "Dapper Stored Procedures & Repository Pattern",
+            objectives: [
+                "Call stored procedures using Dapper.",
+                "Implement Repository patterns to decouple database logic.",
+                "Manage database connections using Dependency Injection."
+            ],
+            theory: [
+                "Repository Pattern: Acts as an in-memory collection of domain objects, decoupling database access code from the application business logic.",
+                "Stored Procedures in Dapper: Specify the stored procedure name and pass `CommandType.StoredProcedure` as the command type parameter.",
+                "Dynamic Parameters: Use Dapper's `DynamicParameters` class to bind input/output parameters."
+            ],
+            coding_exercise: {
+                title: "Stored Procedure Execution with DynamicParameters",
+                instructions: "Call a stored procedure that registers students and returns the new ID via an output parameter.",
+                stub: `using Dapper;
+using Microsoft.Data.SqlClient;
+using System.Data;
+using System.Threading.Tasks;
+
+public class RegistrationRepository {
+    private readonly string _connStr = "Server=localhost;Database=StudentDB;Trusted_Connection=True;";
+    
+    public async Task<int> RegisterStudent(string first, string last, string email) {
+        using var conn = new SqlConnection(_connStr);
+        var parameters = new DynamicParameters();
+        parameters.Add("@FirstName", first);
+        parameters.Add("@LastName", last);
+        parameters.Add("@Email", email);
+        parameters.Add("@NewID", dbType: DbType.Int32, direction: ParameterDirection.Output);
+        
+        await conn.ExecuteAsync("sp_RegisterStudent", parameters, commandType: CommandType.StoredProcedure);
+        return parameters.Get<int>("@NewID");
+    }
+}`
+            },
+            mini_challenge: "Define an interface for your student repository, register it in the DI container, and inject it into a controller.",
+            common_mistakes: [
+                "Writing database connection strings directly in repository classes instead of loading them from configurations.",
+                "Failing to use interfaces, making unit testing harder."
+            ],
+            interview_questions: [
+                {q: "What is the benefit of the Repository Pattern?", a: "It decouples data access code from the controllers, making the codebase easier to test, maintain, and adapt to different databases."},
+                {q: "How do you map stored procedures in Dapper?", a: "By passing parameters as DynamicParameters and setting the commandType argument to CommandType.StoredProcedure."}
+            ],
+            homework: "Implement a repository class mapping database tables using Dapper.",
+            revision_checklist: [
+                "I can write interface repositories.",
+                "I know how to map Output parameters in Dapper.",
+                "I can register repository dependencies in DI."
+            ]
+        },
+        {
+            day_num: 27,
+            title: "JWT Authentication & Policies",
+            objectives: [
+                "Understand token-based authentication.",
+                "Generate signed JSON Web Tokens (JWT).",
+                "Secure API endpoints using role-based policies."
+            ],
+            theory: [
+                "Authentication: Identifies who the user is. Authorization: Checks what the user is allowed to do.",
+                "JWT (JSON Web Token): A secure, compact, self-contained way of transmitting claims as a JSON object signed using cryptographic keys. It consists of a Header, Payload (claims like UserId and Roles), and Signature.",
+                "Statelessness: The server validates the token signature directly using its secret key without making database lookups, making it highly scalable."
+            ],
+            coding_exercise: {
+                title: "JWT Generation Service",
+                instructions: "Write a token service class that generates signed JWT tokens containing user claims.",
+                stub: `using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+
+public class JwtTokenService {
+    public string CreateToken(string email, string role) {
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretKeyMustBe32BytesLong!!"));
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        
+        var claims = new[] {
+            new Claim(ClaimTypes.Email, email),
+            new Claim(ClaimTypes.Role, role)
+        };
+        
+        var token = new JwtSecurityToken(
+            issuer: "MyAPI",
+            audience: "MyClients",
+            claims: claims,
+            expires: DateTime.UtcNow.AddHours(2),
+            signingCredentials: creds
+        );
+        
+        return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+}`
+            },
+            mini_challenge: "Configure JWT authentication in Program.cs and protect a controller route using `[Authorize(Roles = "Admin")]`.",
+            common_mistakes: [
+                "Exposing secret signing keys in source code files instead of using configurations or environment variables.",
+                "Using short signing keys that fail minimum length requirements for HMAC validation."
+            ],
+            interview_questions: [
+                {q: "Name the three parts of a JWT token.", a: "Header (metadata), Payload (claims), and Signature (verifies integrity)."},
+                {q: "What is the difference between [Authorize] and policy-based authorization?", a: "[Authorize] checks basic roles or logins. Policy-based authorization combines multiple claims and validation rules (e.g. requiring a specific email domain and manager status)."}
+            ],
+            homework: "Build a login controller that validates credentials and returns a generated JWT.",
+            revision_checklist: [
+                "I know how to configure JWT middleware.",
+                "I understand signing credentials.",
+                "I can secure controllers using roles."
+            ]
+        },
+        {
+            day_num: 28,
+            title: "FastAPI Integration & External APIs",
+            objectives: [
+                "Understand integration architectures (Gateway to ML Microservice).",
+                "Inject and use HttpClientFactory to prevent socket exhaustion.",
+                "Integrate external Python FastAPI endpoints."
+            ],
+            theory: [
+                "Integration: AI models are usually built in Python (due to robust library support). In production, an ASP.NET Core gateway API handles authorization, logging, and rate limiting, then forwards payloads to a lightweight Python FastAPI service that executes the model.",
+                "HttpClient: Best managed via `IHttpClientFactory` to prevent socket exhaustion bugs (where port connections are left open, locking network access).",
+                "Data handling: Convert payloads to JSON using `System.Text.Json`."
+            ],
+            coding_exercise: {
+                title: "Gateway Call to Python FastAPI model",
+                instructions: "Inject IHttpClientFactory, make a POST request to a FastAPI prediction model, and return results.",
+                stub: `using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+
+[ApiController]
+[Route("api/[controller]")]
+public class MLPredictionController : ControllerBase {
+    private readonly IHttpClientFactory _clientFactory;
+    
+    public MLPredictionController(IHttpClientFactory clientFactory) {
+        _clientFactory = clientFactory;
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> ClassifyData([FromBody] float[] features) {
+        var client = _clientFactory.CreateClient();
+        
+        // Post features payload to FastAPI microservice endpoint
+        var response = await client.PostAsJsonAsync("http://localhost:8000/predict", new { inputs = features });
+        
+        if (!response.IsSuccessStatusCode) {
+            return StatusCode((int)response.StatusCode, "ML prediction model failed.");
+        }
+        
+        var predictionResult = await response.Content.ReadFromJsonAsync<object>();
+        return Ok(predictionResult);
+    }
+}`
+            },
+            mini_challenge: "Write a mock FastAPI service endpoint in Python that accepts features and returns predicted classes.",
+            common_mistakes: [
+                "Instantiating HttpClient manually inside using statements (`using var client = new HttpClient()`), which leads to socket exhaustion under high load.",
+                "Failing to set request timeouts on HttpClient, which can cause threads to hang indefinitely when microservices are down."
+            ],
+            interview_questions: [
+                {q: "Why is IHttpClientFactory preferred over creating HttpClients manually?", a: "It manages the lifetime of underlying HTTP handlers, caching and reusing connections to prevent socket exhaustion while cleaning up unused handlers."},
+                {q: "How do you connect ASP.NET Core with Python ML systems?", a: "By deploying the Python model behind a lightweight FastAPI service and using ASP.NET Core as the API gateway, forwarding requests via HttpClient."}
+            ],
+            homework: "Implement a controller that handles image uploads, forwards image files to FastAPI, and returns predictions.",
+            revision_checklist: [
+                "I know how to register HttpClientFactory.",
+                "I can serialize payloads to JSON.",
+                "I understand gateway patterns."
+            ]
+        },
+
+        // --- Week 5 ---
+        {
+            day_num: 29,
+            title: "Docker Containerization & Pipelines",
+            objectives: [
+                "Understand containerization concepts and advantages.",
+                "Write multi-stage Dockerfiles for ASP.NET Core apps.",
+                "Manage container environment variables."
+            ],
+            theory: [
+                "Containerization: Packages an application and all its dependencies into an isolated image. This guarantees it runs identically in dev, staging, and production.",
+                "Multi-stage builds: Optimizes final image size. First stage uses the large SDK image to build and compile the code. Second stage copies compile output into a lightweight runtime image, keeping production images small and secure.",
+                "Port binding & environments: Configure ASP.NET Core port exposures using environment variables like `ASPNETCORE_URLS=http://+:5000`."
+            ],
+            coding_exercise: {
+                title: "Multi-stage Dockerfile Design",
+                instructions: "Write a multi-stage Dockerfile compiling and building your Web API.",
+                stub: `# Build environment
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+COPY *.csproj ./
+RUN dotnet restore
+
+# Copy all files and compile
+COPY . .
+RUN dotnet publish -c Release -o /app
+
+# Production environment
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+WORKDIR /app
+COPY --from=build /app .
+ENTRYPOINT ["dotnet", "MyAPI.dll"]`
+            },
+            mini_challenge: "Write a docker-compose configuration matching your C# gateway API alongside a Python FastAPI container.",
+            common_mistakes: [
+                "Including development source code or SDK binaries in the final production runtime container, increasing the image size.",
+                "Hardcoding database connection secrets inside Dockerfile configurations."
+            ],
+            interview_questions: [
+                {q: "What is a multi-stage Dockerfile build?", a: "A method that uses multiple FROM steps, building build assets inside SDK images first and copying only compiled outputs to runtime images to keep sizes small."},
+                {q: "How do you pass environment variables to docker containers?", a: "By passing them via the -e flag or declaring variables inside docker-compose files."}
+            ],
+            homework: "Build and run your container image locally, mapping it to port 5000.",
+            revision_checklist: [
+                "I can write a multi-stage Dockerfile.",
+                "I understand docker-compose files.",
+                "I can build images using the Docker CLI."
+            ]
+        },
+        {
+            day_num: 30,
+            title: "Production Configurations & Final Review",
+            objectives: [
+                "Synthesize Phase 1-8 backend development skills.",
+                "Configure CORS policies, SSL redirection, and logging filters.",
+                "Understand IIS and reverse proxy hosting patterns."
+            ],
+            theory: [
+                "Production setups require strict security. Set up Cross-Origin Resource Sharing (CORS) configurations to allow only trusted frontend domains.",
+                "Connection Pooling: Ensure SQL Server connection pooling is active. Review transaction boundaries to prevent database table locks.",
+                "Model setups: Securely configure the API gateway to authorize users before calling internal microservice models."
+            ],
+            coding_exercise: {
+                title: "Configuring CORS Policies",
+                instructions: "Create a Program.cs registration policy allowing only trusted frontend origins to call endpoints.",
+                stub: `// Configure CORS registration policy
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options => {
+    options.AddPolicy("ProductionCorsPolicy", policy => {
+        policy.WithOrigins("https://mytrustedfrontend.com")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+var app = builder.Build();
+app.UseCors("ProductionCorsPolicy");
+app.Run();`
+            },
+            mini_challenge: "Prepare a deployment checklist detailing environment variables and settings overrides for production.",
+            common_mistakes: [
+                "Using wildcard permissions in production CORS policies (`AllowAnyOrigin()`), which exposes APIs to cross-origin security risks.",
+                "Failing to restrict Swagger UI page views in production environments."
+            ],
+            interview_questions: [
+                {q: "What is CORS in ASP.NET Core?", a: "Cross-Origin Resource Sharing (CORS) is a security mechanism that allows or restricts resource requests from external web origins, preventing unauthorized domains from calling your APIs."},
+                {q: "What are the key configuration items to check before deploying an API to production?", a: "Ensure HTTPS is enforced, CORS is restricted, secure database connection strings are loaded from environment variables, detailed error pages are disabled, and structured logging is configured."}
+            ],
+            homework: "Prepare Docker configurations for deployment.",
+            revision_checklist: [
+                "I understand production security rules.",
+                "I can configure CORS policies.",
+                "I have mapped out the 5 Capstone projects."
+            ]
+        }
+    ];
+
+    const projectsData = [
+        {
+            id: 1,
+            title: "Student Management System",
+            features: [
+                "Student profile CRUD with enrollment status indicators.",
+                "Course management catalog mapping credit values.",
+                "Enrollment workflow registering students to courses via transactions.",
+                "Grade entry tracking academic performance metrics."
+            ],
+            folder_structure: `StudentManagement/
+├── src/
+│   ├── Controllers/
+│   │   ├── StudentsController.cs
+│   │   └── CoursesController.cs
+│   ├── Models/
+│   │   ├── Student.cs
+│   │   └── Course.cs
+│   ├── Repositories/
+│   │   ├── IStudentRepository.cs
+│   │   └── DapperStudentRepository.cs
+│   └── Program.cs
+└── Dockerfile`,
+            database_design: `Tables: Students, Courses, StudentCourses. Relationships: Many-to-Many via StudentCourses. Constraints: UNIQUE Email constraint, CHECK credits range (1-6)`,
+            api_endpoints: [
+                "GET /api/students - List all students",
+                "POST /api/students - Create new student profile",
+                "POST /api/enroll - Register student in course (transactional)",
+                "GET /api/courses - List available course catalog"
+            ],
+            validation_rules: [
+                "Student email must be a valid email format.",
+                "First name and last name are required fields.",
+                "Course credits must be between 1 and 6."
+            ],
+            practice_tasks: [
+                "Implement a stored procedure retrieving student GPA averages.",
+                "Add generic search filters querying students by name parameters."
+            ],
+            extension_challenges: [
+                "Add course capacity limits. If the enrollment limit is hit, return a 409 Conflict status and rollback the transaction."
+            ]
+        },
+        {
+            id: 2,
+            title: "Inventory Management System",
+            features: [
+                "Inventory product catalog with pricing tracking.",
+                "Warehouse location management tracking stock levels.",
+                "Stock adjustments updating inventory counts.",
+                "Supplier details tracking primary item sources."
+            ],
+            folder_structure: `InventoryManagement/
+├── src/
+│   ├── Controllers/
+│   │   ├── ProductsController.cs
+│   │   └── InventoryController.cs
+│   ├── Models/
+│   │   ├── Product.cs
+│   │   └── Warehouse.cs
+│   ├── Repositories/
+│   │   ├── IProductRepository.cs
+│   │   └── DapperProductRepository.cs
+│   └── Program.cs
+└── Dockerfile`,
+            database_design: `Tables: Products, Warehouses, InventoryStock, Suppliers. Constraints: UNIQUE SKU value, CHECK stock quantity >= 0, CHECK price > 0`,
+            api_endpoints: [
+                "GET /api/products - Retrieve inventory catalog",
+                "POST /api/products - Add product item to SKU index",
+                "POST /api/inventory/adjust - Update physical stock levels (transactional)",
+                "GET /api/inventory/low-stock - List items falling below threshold limits"
+            ],
+            validation_rules: [
+                "SKU must follow a specific pattern (e.g. PROD-XXXX).",
+                "Product price must be greater than zero.",
+                "Stock adjustments must specify a valid warehouse ID."
+            ],
+            practice_tasks: [
+                "Write non-clustered indexes on product SKU codes.",
+                "Create stored procedures tracking low-stock items."
+            ],
+            extension_challenges: [
+                "Implement an audit logging table that tracks every stock change, recording the user identity, old count, new count, and change timestamp."
+            ]
+        },
+        {
+            id: 3,
+            title: "WhatsApp Message Sender API with PDF Upload",
+            features: [
+                "Message sending queuing triggers simulating WhatsApp integrations.",
+                "PDF media upload storing files locally or in cloud structures.",
+                "SQL Server logging tracking message status states.",
+                "API endpoint processing recipient payloads dynamically."
+            ],
+            folder_structure: `WhatsAppSender/
+├── src/
+│   ├── Controllers/
+│   │   └── MessagesController.cs
+│   ├── Services/
+│   │   ├── IWhatsAppService.cs
+│   │   └── MockWhatsAppService.cs
+│   ├── Repositories/
+│   │   ├── IMessageLogRepository.cs
+│   │   └── DapperMessageLogRepository.cs
+│   └── Program.cs
+└── uploads/`,
+            database_design: `Tables: MessageLogs, Recipients. Relationships: One-to-Many (Recipient to MessageLogs). Constraints: CHECK status values (Queued, Sent, Failed), DEFAULT status is 'Queued'`,
+            api_endpoints: [
+                "POST /api/messages/send - Dispatch message requests",
+                "POST /api/messages/upload-pdf - Upload PDF documents and get URL mappings",
+                "GET /api/messages/history - Query message logs"
+            ],
+            validation_rules: [
+                "Recipient phone number must match international formats (+92XXXXXXXXXX).",
+                "Uploaded file must be a PDF and under 5MB in size.",
+                "Message body text cannot exceed 1000 characters."
+            ],
+            practice_tasks: [
+                "Configure exception middleware to catch file upload failures cleanly.",
+                "Create a Dapper script logging dispatch errors dynamically."
+            ],
+            extension_challenges: [
+                "Implement background tasks using C# HostedService or Hangfire to automatically process queued messages and retry failed attempts."
+            ]
+        },
+        {
+            id: 4,
+            title: "Authentication System with JWT",
+            features: [
+                "User registration hashing password credentials using BCrypt.",
+                "Secure login authentication returning signed JWTs.",
+                "Role authorization protecting API endpoints.",
+                "Token validation checks inside middleware pipelines."
+            ],
+            folder_structure: `AuthSystem/
+├── src/
+│   ├── Controllers/
+│   │   └── AuthController.cs
+│   ├── Models/
+│   │   ├── User.cs
+│   │   └── Role.cs
+│   ├── Services/
+│   │   ├── IPasswordHasher.cs
+│   │   └── TokenService.cs
+│   └── Program.cs
+└── appsettings.json`,
+            database_design: `Tables: Users, Roles, UserRoles. Relationships: Many-to-Many via UserRoles. Constraints: UNIQUE Username and Email constraints`,
+            api_endpoints: [
+                "POST /api/auth/register - Create secure user account",
+                "POST /api/auth/login - Authenticate credentials and get JWT token",
+                "GET /api/users/profile - Secure endpoint (requires authorization token)",
+                "GET /api/admin/dashboard - Protected endpoint (requires Admin role)"
+            ],
+            validation_rules: [
+                "Passwords must contain uppercase letters, numbers, and special characters.",
+                "Usernames must be unique and alphanumeric.",
+                "JWT security key configs must be loaded from app configurations."
+            ],
+            practice_tasks: [
+                "Implement custom token policy validation rules.",
+                "Create user profiles with dynamic role mapping settings."
+            ],
+            extension_challenges: [
+                "Implement JWT Refresh Token flow. Save refresh tokens in SQL Server with an expiration timestamp to safely renew access tokens."
+            ]
+        },
+        {
+            id: 5,
+            title: "AI Prediction API (ASP.NET Core + FastAPI)",
+            features: [
+                "ASP.NET Core acts as API gateway validating caller details (JWT required).",
+                "FastAPI serves model pipelines using PyTorch or Scikit-learn endpoints.",
+                "HttpClientFactory manages microservice connections.",
+                "Logging middleware records prediction latency and feature metrics."
+            ],
+            folder_structure: `AIPredictionSystem/
+├── gateway/ (ASP.NET Core)
+│   ├── Controllers/
+│   │   └── PredictionController.cs
+│   ├── Program.cs
+│   └── Dockerfile
+├── ml_service/ (Python FastAPI)
+│   ├── main.py
+│   ├── model.pkl
+│   └── Dockerfile
+└── docker-compose.yml`,
+            database_design: `Tables: PredictionLogs. Fields: LogID, Timestamp, UserID, FeaturesSent, PredictedClass, AccuracyScore, LatencyMs`,
+            api_endpoints: [
+                "POST /api/predict/classify - Gateway endpoint accepting feature values (JWT required)",
+                "POST /api/predict/image - Endpoint accepting image file uploads for analysis",
+                "GET /api/predict/analytics - Retrieve prediction accuracy counts"
+            ],
+            validation_rules: [
+                "Feature lists must match required dimensions (e.g. exactly 10 float values).",
+                "Supported upload images must be PNG or JPG formats and under 3MB.",
+                "Gateway requires valid Authorization header tokens."
+            ],
+            practice_tasks: [
+                "Build mock classification endpoints in FastAPI returning response structures.",
+                "Implement HttpClient error handling in C# gateways for offline FastAPI states."
+            ],
+            extension_challenges: [
+                "Implement circuit-breaker patterns on HttpClient using Polly. If FastAPI experiences delays, fail-fast and return cached predictions."
+            ]
+        }
+    ];
+
+    // Generate exercises arrays
+    const exercisesData = [];
+    
+    // C# (100 exercises)
+    for (let i = 1; i <= 100; i++) {
+        let diff = i <= 35 ? "easy" : i <= 70 ? "medium" : "hard";
+        exercisesData.push({
+            id: `csharp-${i}`,
+            category: "csharp",
+            difficulty: diff,
+            title: `C# Exercise ${i}: Syntax & Logic`,
+            description: `Implement coding logic simulating syntax modifications. Practice task ${i}.`,
+            stub: `public class Exercise${i} {\n    public static void Run() {\n        // Your code here\n    }\n}`
+        });
+    }
+
+    // SQL (50 exercises)
+    for (let i = 1; i <= 50; i++) {
+        let diff = i <= 20 ? "easy" : i <= 40 ? "medium" : "hard";
+        exercisesData.push({
+            id: `sql-${i}`,
+            category: "sql",
+            difficulty: diff,
+            title: `SQL Exercise ${i}: Schema & Queries`,
+            description: `Write query statements satisfying database search operations. Practice task ${i}.`,
+            stub: `SELECT * FROM Table${i};`
+        });
+    }
+
+    // ASP.NET Core (50 exercises)
+    for (let i = 1; i <= 50; i++) {
+        let diff = i <= 20 ? "easy" : i <= 40 ? "medium" : "hard";
+        exercisesData.push({
+            id: `aspnet-${i}`,
+            category: "aspnet",
+            difficulty: diff,
+            title: `API Exercise ${i}: Web Controllers`,
+            description: `Build controller routing, pipelines, middleware, and request validators. Practice task ${i}.`,
+            stub: `[HttpGet]\npublic IActionResult Run() => Ok();`
+        });
+    }
+
+    // Dapper (30 exercises)
+    for (let i = 1; i <= 30; i++) {
+        let diff = i <= 10 ? "easy" : i <= 20 ? "medium" : "hard";
+        exercisesData.push({
+            id: `dapper-${i}`,
+            category: "dapper",
+            difficulty: diff,
+            title: `Dapper Exercise ${i}: Micro-ORM Mappings`,
+            description: `Map database fields directly to entities, execute stored procedures, and handle parameterized inputs. Practice task ${i}.`,
+            stub: `var data = await conn.QueryAsync<Model>("SELECT * FROM Table");`
+        });
+    }
+
+    // JWT (20 exercises)
+    for (let i = 1; i <= 20; i++) {
+        let diff = i <= 10 ? "medium" : "hard";
+        exercisesData.push({
+            id: `jwt-${i}`,
+            category: "jwt",
+            difficulty: diff,
+            title: `JWT Exercise ${i}: Securing Endpoints`,
+            description: `Configure claim parameters, token validation middleware, and policy restrictions. Practice task ${i}.`,
+            stub: `[Authorize(Roles = "Admin")]`
+        });
+    }
+
+    // Integration (20 exercises)
+    for (let i = 1; i <= 20; i++) {
+        let diff = i <= 10 ? "medium" : "hard";
+        exercisesData.push({
+            id: `integration-${i}`,
+            category: "integration",
+            difficulty: diff,
+            title: `API Integration Exercise ${i}: Gateway to FastAPI`,
+            description: `Establish calls via HttpClientFactory, transmit image streams, and retrieve model outputs. Practice task ${i}.`,
+            stub: `var client = _clientFactory.CreateClient();`
+        });
+    }
+
+    // Deployment (10 exercises)
+    for (let i = 1; i <= 10; i++) {
+        let diff = i <= 5 ? "medium" : "hard";
+        exercisesData.push({
+            id: `deployment-${i}`,
+            category: "deployment",
+            difficulty: diff,
+            title: `Deployment Exercise ${i}: Docker Environment`,
+            description: `Compose multi-stage Dockerfiles, set port mapping configs, and test container builds. Practice task ${i}.`,
+            stub: `FROM mcr.microsoft.com/dotnet/aspnet:8.0`
+        });
+    }
+
+    // Debugging (20 exercises)
+    for (let i = 1; i <= 20; i++) {
+        let diff = i <= 10 ? "medium" : "hard";
+        exercisesData.push({
+            id: `debugging-${i}`,
+            category: "debugging",
+            difficulty: diff,
+            title: `Debugging Exercise ${i}: Bug Squashing`,
+            description: `Identify and fix bugs like captive dependency lifetimes, memory leaks, null references, and database connection locks. Practice task ${i}.`,
+            stub: `// Analyze error log and refactor this code`
+        });
+    }
+
+    // Q&A Data (50 questions)
+    const qaData = [];
+    for (let i = 1; i <= 50; i++) {
+        let q = "";
+        let a = "";
+        if (i <= 10) {
+            q = `Q${i}: What is the main difference between C++ memory management and C# Garbage Collection?`;
+            a = `C++ relies on deterministic memory allocation where developers allocate heap memory and release it manually (using delete or smart pointers). C# uses a Garbage Collector (GC) which runs asynchronously on a separate thread, sweep-analyzing heap allocations and deallocating memory automatically. This reduces leaks but introduces brief GC pauses.`;
+        } else if (i <= 20) {
+            q = `Q${i}: How do Indexes improve read performance in SQL Server, and what are their drawbacks?`;
+            a = `Indexes allow SQL Server to find rows quickly without performing full table scans. However, they increase disk storage size requirements and slow down data modification operations (INSERT, UPDATE, DELETE) because every index structure must be rebuilt when data changes.`;
+        } else if (i <= 30) {
+            q = `Q${i}: Explain Dependency Injection lifetimes in ASP.NET Core: Transient, Scoped, and Singleton.`;
+            a = `Transient services are created every time they are requested. Scoped services are created once per client request (HTTP request lifetime). Singleton services are created once on startup and shared across all request pipelines. Choosing lifetimes correctly is vital to avoid thread safety bugs and captive dependencies.`;
+        } else if (i <= 40) {
+            q = `Q${i}: Why is Dapper preferred over Entity Framework Core for high-performance reporting APIs?`;
+            a = `Dapper is a Micro-ORM that directly extends IDbConnection and maps raw SQL results to C# models without the overhead of query translation, change-tracking, or model entity setups. It executes queries at speeds close to ADO.NET while writing clean code mappings.`;
+        } else {
+            q = `Q${i}: How does a JWT Token work in stateless API Authentication?`;
+            a = `A JSON Web Token (JWT) is signed by the server using secret keys. When client calls request access, they pass the token in authorization headers. The server verifies token integrity and reads claims (UserID, Roles) directly from the payload without checking data tables, enabling high scalability.`;
+        }
+        qaData.push({ id: i, q: q, a: a });
+    }
+
+    // Rendering functions
+    function renderDays() {
+        const container = document.getElementById('days-container');
+        container.innerHTML = '';
+        
+        daysData.forEach(day => {
+            // Render week-end summary indicator every 7 days
+            let weekCardHtml = '';
+            if (day.day_num % 7 === 1 && day.day_num > 1) {
+                const weekNum = Math.floor(day.day_num / 7);
+                weekCardHtml = `
+                    <div class="card week-summary-card">
+                        <h4 style="color: var(--accent-primary);">🏁 Week ${weekNum} Summary completed</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.25rem;">
+                            Make sure to complete the weekend mini-project, review the debugging exercise, and review the checklist items before starting Week ${weekNum + 1}.
+                        </p>
+                    </div>
+                `;
+            }
+
+            const html = `
+                ${weekCardHtml}
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <span class="badge">Day ${day.day_num}</span>
+                        <strong style="color: var(--text-main); font-size: 1.1rem;">${day.title}</strong>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1.5rem;" onclick="event.stopPropagation();">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="chk-day-${day.day_num}" class="track-checkbox" onchange="toggleTrackItem('chk-day-${day.day_num}')">
+                            Mark Read
+                        </label>
+                        <span class="arrow-indicator">▼</span>
+                    </div>
+                </div>
+                <div class="accordion-content">
+                    <div class="day-subsection">
+                        <h4>🎯 Learning Objectives</h4>
+                        <ul class="nested-list">
+                            ${day.objectives.map(o => '<li>' + o + '</li>').join('')}
+                        </ul>
+                    </div>
+
+                    <div class="day-subsection">
+                        <h4>📘 Theory</h4>
+                        <ul class="nested-list">
+                            ${day.theory.map(t => '<li>' + t + '</li>').join('')}
+                        </ul>
+                    </div>
+
+                    <div class="day-subsection">
+                        <h4>💻 Coding Exercise: ${day.coding_exercise.title}</h4>
+                        <p style="margin-bottom: 0.75rem; color: var(--text-muted);">${day.coding_exercise.instructions}</p>
+                        <pre><code>${escapeHtml(day.coding_exercise.stub)}</code></pre>
+                    </div>
+
+                    <div class="day-subsection">
+                        <h4>⭐ Mini Challenge</h4>
+                        <p>${day.mini_challenge}</p>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="day-subsection" style="border-left-color: var(--hard-color); margin-bottom: 0;">
+                            <h4 style="color: var(--hard-color);">⚠️ Common Mistakes</h4>
+                            <ul class="nested-list">
+                                ${day.common_mistakes.map(m => '<li>' + m + '</li>').join('')}
+                            </ul>
+                        </div>
+                        <div class="day-subsection" style="border-left-color: var(--easy-color); margin-bottom: 0;">
+                            <h4 style="color: var(--easy-color);">💬 Interview Questions</h4>
+                            <ul class="nested-list" style="list-style: none; margin-left: 0;">
+                                ${day.interview_questions.map(iq => 
+                                    '<li style="margin-bottom: 1rem;">' +
+                                        '<div style="font-weight: 700; color: var(--text-main);">Q: ' + iq.q + '</div>' +
+                                        '<div style="color: var(--text-muted); margin-top: 0.25rem;">A: ' + iq.a + '</div>' +
+                                    '</li>'
+                                ).join('')}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="day-subsection" style="margin-top: 1.5rem;">
+                        <h4>🏠 Homework & Practical Tasks</h4>
+                        <p>${day.homework}</p>
+                    </div>
+
+                    <div class="day-subsection" style="border-left-color: var(--accent-secondary); margin-bottom: 0; margin-top: 1.5rem;">
+                        <h4 style="color: var(--accent-secondary);">✅ Revision Checklist</h4>
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
+                            ${day.revision_checklist.map((rc, idx) => 
+                                '<label class="checkbox-container">' +
+                                    '<input type="checkbox" id="chk-day-' + day.day_num + '-rev-' + idx + '" class="track-checkbox" onchange="toggleTrackItem(\'chk-day-' + day.day_num + '-rev-' + idx + '\')">' +
+                                    rc +
+                                '</label>'
+                            ).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += html;
+        });
+    }
+
+    function renderProjects() {
+        const container = document.getElementById('projects-container');
+        container.innerHTML = '';
+        
+        projectsData.forEach(p => {
+            const html = `
+                <div class="card">
+                    <h3 style="color: var(--accent-primary); font-size: 1.6rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+                        Project ${p.id}: ${p.title}
+                    </h3>
+                    
+                    <div style="margin-bottom: 1.25rem;">
+                        <strong style="color: var(--text-main);">🔑 Key Features:</strong>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; color: var(--text-muted);">
+                            ${p.features.map(f => '<li style="margin-bottom: 0.25rem;">' + f + '</li>').join('')}
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1.25rem;">
+                        <strong style="color: var(--text-main);">📂 Folder Structure:</strong>
+                        <pre><code>${p.folder_structure}</code></pre>
+                    </div>
+
+                    <div style="margin-bottom: 1.25rem;">
+                        <strong style="color: var(--text-main);">🛢️ Database Design:</strong>
+                        <p style="color: var(--text-muted); margin-top: 0.25rem;">${p.database_design}</p>
+                    </div>
+
+                    <div style="margin-bottom: 1.25rem;">
+                        <strong style="color: var(--text-main);">🌐 API Endpoints:</strong>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; list-style-type: none;">
+                            ${p.api_endpoints.map(ep => 
+                                '<li style="margin-bottom: 0.5rem;">' +
+                                    '<code style="background-color: #0b0f17; padding: 0.25rem 0.5rem; border-radius: 4px; color: var(--accent-secondary); font-size: 0.95rem; border: 1px solid #1f2937;">' +
+                                        ep +
+                                    '</code>' +
+                                '</li>'
+                            ).join('')}
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <strong style="color: var(--text-main);">🛡️ Validation Rules:</strong>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; color: var(--text-muted);">
+                            ${p.validation_rules.map(vr => '<li style="margin-bottom: 0.25rem;">' + vr + '</li>').join('')}
+                        </ul>
+                    </div>
+
+                    <div class="grid-2" style="border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+                        <div style="border-left: 3px solid var(--accent-secondary); padding-left: 1rem;">
+                            <h4 style="color: var(--accent-secondary); margin-bottom: 0.5rem;">✍️ Practice Tasks</h4>
+                            <ul style="margin-left: 1.25rem; color: var(--text-muted);">
+                                ${p.practice_tasks.map(pt => '<li style="margin-bottom: 0.25rem;">' + pt + '</li>').join('')}
+                            </ul>
+                        </div>
+                        <div style="border-left: 3px solid var(--medium-color); padding-left: 1rem;">
+                            <h4 style="color: var(--medium-color); margin-bottom: 0.5rem;">🚀 Extension Challenge</h4>
+                            <ul style="margin-left: 1.25rem; color: var(--text-muted);">
+                                ${p.extension_challenges.map(ec => '<li style="margin-bottom: 0.25rem;">' + ec + '</li>').join('')}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += html;
+        });
+    }
+
+    function renderExercises() {
+        const container = document.getElementById('exercises-container');
+        container.innerHTML = '';
+        
+        exercisesData.forEach(ex => {
+            const html = `
+                <div class="card exercise-card" data-category="${ex.category}" data-title="${ex.title.toLowerCase()}" data-desc="${ex.description.toLowerCase()}">
+                    <div class="flex-row">
+                        <h4 style="color: var(--text-main); font-weight: 700;">${ex.title}</h4>
+                        <span class="tag ${ex.difficulty}">${ex.difficulty}</span>
+                    </div>
+                    <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.95rem;">${ex.description}</p>
+                    <pre><code>${escapeHtml(ex.stub)}</code></pre>
+                    <div class="flex-row" style="margin-top: 1rem; justify-content: flex-end;">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="chk-ex-${ex.id}" class="track-checkbox" onchange="toggleTrackItem('chk-ex-${ex.id}')">
+                            Mark Completed
+                        </label>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += html;
+        });
+    }
+
+    let currentCategory = 'all';
+    function filterExerciseCategory(cat) {
+        currentCategory = cat;
+        // Update active class on buttons
+        const buttons = document.querySelectorAll('#practice-bank button');
+        buttons.forEach(btn => {
+            const btnText = btn.innerText.toLowerCase();
+            if (cat === 'all' && btnText === 'all') {
+                btn.classList.add('active');
+            } else if (cat !== 'all' && btnText.includes(cat.toLowerCase())) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+        filterExercises();
+    }
+
+    function filterExercises() {
+        const query = document.getElementById('exercise-search').value.toLowerCase();
+        document.querySelectorAll('.exercise-card').forEach(card => {
+            const cat = card.getAttribute('data-category');
+            const title = card.getAttribute('data-title');
+            const desc = card.getAttribute('data-desc');
+            
+            const matchesCat = (currentCategory === 'all' || cat === currentCategory);
+            const matchesQuery = (title.includes(query) || desc.includes(query));
+            
+            if (matchesCat && matchesQuery) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    function renderQA() {
+        const container = document.getElementById('qa-container');
+        container.innerHTML = '';
+        
+        qaData.forEach(item => {
+            const html = `
+                <div class="card qa-card" data-q="${item.q.toLowerCase()}" data-a="${item.a.toLowerCase()}">
+                    <h3 style="color: var(--medium-color); margin-bottom: 0.75rem; font-size: 1.25rem;">${item.q}</h3>
+                    <p style="color: var(--text-main); font-size: 0.98rem; line-height: 1.6;">${item.a}</p>
+                </div>
+            `;
+            container.innerHTML += html;
+        });
+    }
+
+    function filterQA() {
+        const query = document.getElementById('qa-search').value.toLowerCase();
+        document.querySelectorAll('.qa-card').forEach(card => {
+            const q = card.getAttribute('data-q');
+            const a = card.getAttribute('data-a');
+            
+            if (q.includes(query) || a.includes(query)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // Initial boot seq
+    window.onload = function() {
+        renderDays();
+        renderProjects();
+        renderExercises();
+        renderQA();
+        loadTrackState();
+    };
+</script>
+</body>
+</html>
