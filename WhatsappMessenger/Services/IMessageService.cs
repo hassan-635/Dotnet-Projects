@@ -29,7 +29,7 @@ public class MessageService : IMessageService
 
         var message = new Message
         {
-            phoneNumber = dto.phoneNumber,
+            phoneNumber = dto.PhoneNumber,
             MessageText = dto.MessageText,
             FileName = dto.Pdf?.FileName,
             FileData = fileData

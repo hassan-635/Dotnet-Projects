@@ -16,9 +16,10 @@ public class MessagesController : ControllerBase
     }
 
     [HttpPost("Send")]
+    [Consumes("multipart/form-data")]
     public async Task<IActionResult> SendMessage([FromForm] sendMessageDto dto)
     {
-        if (string.IsNullOrWhiteSpace(dto.phoneNumber))
+        if (string.IsNullOrWhiteSpace(dto.PhoneNumber))
         {
             return BadRequest("Phone Number Required!!!");
         }
