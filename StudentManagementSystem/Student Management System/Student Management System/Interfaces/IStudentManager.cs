@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Student_Management_System.Interfaces
 {
-    internal interface Interface1
+    internal interface IStudentManager
     {
     }
 }
