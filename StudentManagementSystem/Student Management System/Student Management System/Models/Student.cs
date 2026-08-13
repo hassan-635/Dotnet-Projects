@@ -6,22 +6,35 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Student_Management_System.Models
 {
-    [Index(nameof(StudentId), IsUnique = true)]
+    [Index(nameof(studentId), IsUnique = true)]
     internal class Student : Person
     {
         [Required(ErrorMessage ="Please Enter Student ID")]
-        public string StudentId { get; set; }
+        public string studentId { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please Enter Course")]
-        public string Course { get; set; }
+        public string course { get; set; }
 
         [Range(1, 8, ErrorMessage = "Semester must be between 1 and 8")]
-        public int Semester { get; set; }
+        public int semester { get; set; }
 
         [Range(0, 100, ErrorMessage = "Please Enter Marks of Students")]
         public int marks { get; set; }
 
         [Range(0, 100, ErrorMessage = "Please Enter Attendance Percentage of Students")]
         public double attendancePercentage { get; set; }
+
+        public Student(string name, int age, string email, string phone, string studentId, string course, int semester, int marks, double attendacePercentage)
+        {
+            this.name = name;
+            this.age = age;
+            this.email = email;
+            this.phone = phone;
+            this.studentId = studentId;
+            this.course = course;
+            this.semester = semester;
+            this.marks = marks;
+            this.attendancePercentage = attendacePercentage;
+        }
     }
 }
