@@ -36,5 +36,31 @@ namespace Student_Management_System.Models
             this.marks = marks;
             this.attendancePercentage = attendacePercentage;
         }
+
+        public string GetGrade()
+        {
+            string grade;
+            if(marks >= 80)
+            {
+                grade = "A";
+            }
+            else if (marks >= 70 && marks <= 79)
+            {
+                grade = "B";
+            }
+            else if (marks >= 60 && marks <= 69)
+            {
+                grade = "C";
+            }
+            else if(marks >= 50 && marks <=59)
+            {
+                grade = "D";
+            }
+            else
+            {
+                grade = "F";
+            }
+            return grade;
+        }
     }
 }
