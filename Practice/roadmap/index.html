@@ -340,11 +340,11 @@
 
 <div class="container">
     <div class="sidebar">
-        <button class="nav-btn active" onclick="switchTab('overview')">📋 Roadmap Overview</button>
-        <button class="nav-btn" onclick="switchTab('daily-roadmap')">📅 30-Day Daily Study</button>
-        <button class="nav-btn" onclick="switchTab('projects')">🚀 Capstone Projects</button>
-        <button class="nav-btn" onclick="switchTab('practice-bank')">📂 Practice Bank</button>
-        <button class="nav-btn" onclick="switchTab('interview-qa')">💬 Interview Q&A</button>
+        <button class="nav-btn active" onclick="switchTab('overview', this)">📋 Roadmap Overview</button>
+        <button class="nav-btn" onclick="switchTab('daily-roadmap', this)">📅 30-Day Daily Study</button>
+        <button class="nav-btn" onclick="switchTab('projects', this)">🚀 Capstone Projects</button>
+        <button class="nav-btn" onclick="switchTab('practice-bank', this)">📂 Practice Bank</button>
+        <button class="nav-btn" onclick="switchTab('interview-qa', this)">💬 Interview Q&A</button>
     </div>
 
     <div class="main-content">
@@ -468,12 +468,12 @@
 
 <script>
     // Tab switching
-    function switchTab(tabId) {
+    function switchTab(tabId, clickedBtn) {
         document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
         document.querySelectorAll('.sidebar .nav-btn').forEach(btn => btn.classList.remove('active'));
         
         document.getElementById(tabId).classList.add('active');
-        event.currentTarget.classList.add('active');
+        if (clickedBtn) clickedBtn.classList.add('active');
     }
 
     // Toggle accordions
@@ -574,9 +574,9 @@ class Program {
         Person p1 = new Person { Name = "Alice" };
         Person p2 = new Person { Name = "Bob" };
         
-        Console.WriteLine($"Before Swap: p1={p1.Name}, p2={p2.Name}");
+        Console.WriteLine("Before Swap: p1=" + p1.Name + ", p2=" + p2.Name);
         Swap(ref p1, ref p2); // ref acts like C++ pointer references
-        Console.WriteLine($"After Swap: p1={p1.Name}, p2={p2.Name}");
+        Console.WriteLine("After Swap: p1=" + p1.Name + ", p2=" + p2.Name);
     }
     
     static void Swap(ref Person a, ref Person b) {
@@ -674,11 +674,11 @@ public class Logger {
     public void LogError(string message) {
         try {
             using (StreamWriter writer = new StreamWriter(_filePath, true)) {
-                writer.WriteLine($"[{DateTime.UtcNow}] ERROR: {message}");
+                writer.WriteLine("[" + DateTime.UtcNow + "] ERROR: " + message);
             }
         }
         catch (IOException ex) {
-            Console.WriteLine($"Disk write failed: {ex.Message}");
+            Console.WriteLine("Disk write failed: " + ex.Message);
         }
     }
 }`
@@ -739,7 +739,7 @@ public class Program {
             .ToList(); // Forces immediate execution
             
         foreach (var msg in errors) {
-            Console.WriteLine($"Error recorded: {msg}");
+            Console.WriteLine($"Error recorded: " + msg);
         }
     }
 }`
@@ -839,7 +839,7 @@ public class PredictionEngine {
 class Program {
     static void Main() {
         var engine = new PredictionEngine();
-        engine.OnPredictionCompleted += msg => Console.WriteLine($"Log: {msg}");
+        engine.OnPredictionCompleted += msg => Console.WriteLine("Log: " + msg);
         engine.RunPrediction();
     }
 }`
@@ -1294,7 +1294,7 @@ public class HelloController : ControllerBase {
     [HttpGet("check/{id}")]
     public IActionResult CheckID(int id) {
         if (id <= 0) return BadRequest("Invalid ID parameter.");
-        return Ok($"Value validated: {id}");
+        return Ok("Value validated: " + id);
     }
 }`
             },
@@ -1348,7 +1348,7 @@ public class PerformanceMiddleware {
         await _next(context); 
         
         watch.Stop();
-        System.Console.WriteLine($"Request took {watch.ElapsedMilliseconds} ms to execute.");
+        System.Console.WriteLine("Request took " + watch.ElapsedMilliseconds + " ms to execute.");
     }
 }`
             },

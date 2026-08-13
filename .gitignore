@@ -1,2 +1,20 @@
-WhatsappMessenger/obj
-WhatsappMessenger/bin
+# Visual Studio / VS Code
+.vs/
+**/.vs/
+**/.vscode/
+**/.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# .NET build output
+**/[Bb]in/
+**/[Oo]bj/
+**/*.dll
+**/*.pdb
+**/*.exe
+
+# Keep the actual project files tracked
+!StudentManagementSystem/Student Management System/Student Management System.slnx
+!StudentManagementSystem/Student Management System/Student Management System/Student Management System.csproj
