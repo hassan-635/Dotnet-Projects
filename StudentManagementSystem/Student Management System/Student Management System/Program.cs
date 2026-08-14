@@ -23,7 +23,7 @@ namespace Student_Management_System
             Console.WriteLine("6 to show Top Students");
             Console.WriteLine("7 to show Eligible Students");
 
-            bool isvalid = int.TryParse(Console.ReadLine(), out int opt);
+            int opt = int.Parse(Console.ReadLine() ?? "0");
             return opt;
         }
 
@@ -55,7 +55,21 @@ namespace Student_Management_System
             }
             else if(option == 2)
             {
-                sm.showAllStudents();
+                var students = sm.showAllStudents();
+
+                if (students == null || students.Count == 0)
+                {
+                    Console.WriteLine("No students found.");
+                }
+                else
+                {
+                    Console.WriteLine("\n===== ALL STUDENTS =====");
+                    foreach (var s in students)
+                    {
+                        Console.WriteLine($"ID: {s.studentId} | Name: {s.name} | Age: {s.age} | Email: {s.email} | Phone: {s.phone} | Course: {s.course} | Semester: {s.semester} | Marks: {s.marks} | Attendance: {s.attendancePercentage}%");
+                    }
+                    Console.WriteLine("========================");
+                }
             }
             else if(option == 3)
             {
