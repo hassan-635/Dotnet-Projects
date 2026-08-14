@@ -21,38 +21,34 @@ namespace Student_Management_System
             Console.WriteLine("6 to show Top Students");
             Console.WriteLine("7 to show Eligible Students");
 
-            int opt = Console.Read();
+            bool isvalid = int.TryParse(Console.ReadLine(), out int opt);
             return opt;
         }
 
         public static void performActions(int option)
         {
-            switch (option)
+            if(option == 1)
             {
-                case 1:
-                    {
-                        Console.WriteLine("Enter Student Id : ");
-                        string id = Console.ReadLine();
-                        Console.WriteLine("Enter Student Namer : ");
-                        string name = Console.ReadLine();
-                        Console.WriteLine("Enter Student Age : ");
-                        int age = Console.Read();
-                        Console.WriteLine("Enter Email : ");
-                        string email = Console.ReadLine();
-                        Console.WriteLine("Enter Phone number : ");
-                        string phone = Console.ReadLine();
-                        Console.WriteLine("Enter Course : ");
-                        string course = Console.ReadLine();
-                        Console.WriteLine("Enter Semester : ");
-                        int semester = Console.Read();
-                        Console.WriteLine("Enter Marks : ");
-                        int marks = Console.Read();
-                        Console.WriteLine("Enter Attendance Percentage : ");
-                        double attendancePercentage = Console.Read();
-                        Student student = new Student(id, name, age, email, phone, course, semester, marks, attendancePercentage);
-                        sm.addStudent(student);
-                        break;
-                    }
+                Console.WriteLine("Enter Student Id : ");
+                string id = Console.ReadLine();
+                Console.WriteLine("Enter Student Namer : ");
+                string name = Console.ReadLine();
+                Console.WriteLine("Enter Student Age : ");
+                bool isvalid = int.TryParse(Console.ReadLine(), out int age);
+                Console.WriteLine("Enter Email : ");
+                string email = Console.ReadLine();
+                Console.WriteLine("Enter Phone number : ");
+                string phone = Console.ReadLine();
+                Console.WriteLine("Enter Course : ");
+                string course = Console.ReadLine();
+                Console.WriteLine("Enter Semester : ");
+                isvalid = int.TryParse(Console.ReadLine(), out int semester);
+                Console.WriteLine("Enter Marks : ");
+                isvalid = int.TryParse(Console.ReadLine(), out int marks);
+                Console.WriteLine("Enter Attendance Percentage : ");
+                isvalid = double.TryParse(Console.ReadLine(), out double attendancePercentage);
+                Student student = new Student(id, name, age, email, phone, course, semester, marks, attendancePercentage);
+                sm.addStudent(student);
             }
         }
         static void Main(string[] args)
