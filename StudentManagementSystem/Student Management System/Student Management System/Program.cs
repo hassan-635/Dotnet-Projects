@@ -2,6 +2,7 @@
 using Student_Management_System.Interfaces;
 using Student_Management_System.Services;
 using Student_Management_System.Models;
+using Microsoft.Extensions.Options;
 
 
 namespace Student_Management_System
@@ -209,7 +210,66 @@ namespace Student_Management_System
                 }
 
             }
-        
+            else if (option == 6)
+            {
+                int count;
+
+                while (true)
+                {
+                    Console.Write("Please Enter total positions: ");
+
+                    if (int.TryParse(Console.ReadLine(), out count) && count > 0)
+                    {
+                        break;
+                    }
+
+                    Console.WriteLine("Invalid input! Please enter a positive number.");
+                }
+
+                List<Student> topStudents = sm.showTopStudents(count);
+
+                if (topStudents.Count == 0)
+                {
+                    Console.WriteLine("No students found.");
+                }
+                else
+                {
+                    Console.WriteLine("\n========== TOP STUDENTS ==========");
+
+                    foreach (Student student in topStudents)
+                    {
+                        Console.WriteLine(
+                            $"ID: {student.studentId} | " +
+                            $"Name: {student.name} | " +
+                            $"Marks: {student.marks}"
+                        );
+                    }
+                }
+            }
+            else if (option == 7)
+            {
+                List<Student>? eligibleStudents = sm.showEligibleStudents();
+
+                if (eligibleStudents == null || eligibleStudents.Count == 0)
+                {
+                    Console.WriteLine("No eligible students found.");
+                }
+                else
+                {
+                    Console.WriteLine("\n========== ELIGIBLE STUDENTS ==========");
+
+                    foreach (Student student in eligibleStudents)
+                    {
+                        Console.WriteLine(
+                            $"ID: {student.studentId} | " +
+                            $"Name: {student.name} | " +
+                            $"Marks: {student.marks} | " +
+                            $"Attendance: {student.attendancePercentage}%"
+                        );
+                    }
+                }
+            }
+
         }
         static void Main(string[] args)
         {
