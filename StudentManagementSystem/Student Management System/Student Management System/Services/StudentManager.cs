@@ -28,5 +28,35 @@ namespace Student_Management_System.Services
         {
             return students;
         }
+
+        public Student? searchStudent(string studentId)
+        {
+            if (students.Any(existingStudent => existingStudent.studentId == studentId))
+            {
+                return students.FirstOrDefault(s => s.studentId == studentId);
+            }
+            else return null;
+        }
+
+        public bool updateStudent(string studentId, Student student)
+        {
+            var existingStudent = students.FirstOrDefault(s => s.studentId == studentId);
+
+            if(studentId == null)
+            {
+                return false;
+            }
+            else
+            {
+                existingStudent.name = student.name;
+                existingStudent.age = student.age;
+                existingStudent.email = student.email;
+                existingStudent.course = student.course;
+                existingStudent.semester = student.semester;
+                existingStudent.marks = student.marks;
+                existingStudent.attendancePercentage = student.attendancePercentage;
+
+            }
+        }
     }
 }
