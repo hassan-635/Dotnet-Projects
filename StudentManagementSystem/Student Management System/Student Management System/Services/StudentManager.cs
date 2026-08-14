@@ -105,7 +105,7 @@ namespace Student_Management_System.Services
                 {
                     foreach(Student student in students)
                     {
-                        string line = $"{student.studentId}|{student.name}|{student.age}|{student.email}|{student.phone}|{student.course}|{student.semester}|{student.marks}|{student.attendancePercentage}"
+                        string line = $"{student.studentId}|{student.name}|{student.age}|{student.email}|{student.phone}|{student.course}|{student.semester}|{student.marks}|{student.attendancePercentage}";
                         writer.WriteLine(line);
                     }
                 }
