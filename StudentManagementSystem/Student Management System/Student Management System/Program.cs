@@ -191,6 +191,24 @@ namespace Student_Management_System
                     Console.WriteLine("Student Update Failed.");
                 }
             }
+            else if(option == 5)
+            {
+                Console.Write("Please enter Student ID to update: ");
+                string id = Console.ReadLine();
+
+                bool result = sm.deleteStudent(id);
+
+                if (result)
+                {
+                    Console.WriteLine("Student Deleted!!!");
+                    sm.saveStudents();
+                }
+                else
+                {
+                    Console.WriteLine("Student Not Found!!!");
+                }
+
+            }
         
         }
         static void Main(string[] args)
