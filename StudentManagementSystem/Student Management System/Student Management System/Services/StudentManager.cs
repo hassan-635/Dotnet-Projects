@@ -3,6 +3,7 @@ using Student_Management_System.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Student_Management_System.Services
 {
@@ -89,6 +90,34 @@ namespace Student_Management_System.Services
         {
             if (students.Count == 0) return null;
             else return students.Where(s => s.isEligible()).ToList();
+        }
+
+        public bool saveStudents()
+        {
+            try
+            {
+                string folderPath = Path.Combine(AppContext.BaseDirectory, "Data");
+                Directory.CreateDirectory(folderPath);
+
+                string filePath = Path.Combine(folderPath, "students.txt");
+
+                using(StreamWriter writer = new StreamWriter(filePath))
+                {
+                    foreach(Student student in students)
+                    {
+                        string line = $"{student.studentId}|{student.name}|{student.age}|{student.email}|{student.phone}|{student.course}|{student.semester}|{student.marks}|{student.attendancePercentage}"
+                        writer.WriteLine(line);
+                    }
+                }
+
+                Console.WriteLine("Student Data Saved Successfully...");
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error while saving Data : {ex.Message}");
+                return false;
+            }
         }
     }
 }
