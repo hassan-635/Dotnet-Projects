@@ -62,5 +62,14 @@ namespace Student_Management_System.Models
             }
             return grade;
         }
+
+        public bool isEligible()
+        {
+            if(marks>=50 && attendancePercentage>=75)
+            {
+                return true;
+            }
+            else { return false; }
+        }
     }
 }
