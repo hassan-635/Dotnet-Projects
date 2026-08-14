@@ -12,6 +12,7 @@ namespace Student_Management_System
 
         public static int showOptions()
         {
+            sm.loadStudents();
             Console.WriteLine("Enter : ");
             Console.WriteLine("1 to Add Student");
             Console.WriteLine("2 to Show All Students");
@@ -31,7 +32,7 @@ namespace Student_Management_System
             {
                 Console.WriteLine("Enter Student Id : ");
                 string id = Console.ReadLine();
-                Console.WriteLine("Enter Student Namer : ");
+                Console.WriteLine("Enter Student Name : ");
                 string name = Console.ReadLine();
                 Console.WriteLine("Enter Student Age : ");
                 bool isvalid = int.TryParse(Console.ReadLine(), out int age);
@@ -49,7 +50,148 @@ namespace Student_Management_System
                 isvalid = double.TryParse(Console.ReadLine(), out double attendancePercentage);
                 Student student = new Student(id, name, age, email, phone, course, semester, marks, attendancePercentage);
                 sm.addStudent(student);
+                sm.saveStudents();
             }
+            else if(option == 2)
+            {
+                sm.showAllStudents();
+            }
+            else if(option == 3)
+            {
+                Console.WriteLine("Enter student id to search : ");
+                string id = Console.ReadLine();
+                Student  student = sm.searchStudent(id);
+                if(student == null)
+                {
+                    Console.WriteLine("Student Not Found!!!");
+                }
+                else
+                {
+                    Console.WriteLine("\n========== STUDENT FOUND ==========");
+                    Console.WriteLine($"Student ID: {student.studentId}");
+                    Console.WriteLine($"Name: {student.name}");
+                    Console.WriteLine($"Age: {student.age}");
+                    Console.WriteLine($"Email: {student.email}");
+                    Console.WriteLine($"Phone: {student.phone}");
+                    Console.WriteLine($"Course: {student.course}");
+                    Console.WriteLine($"Semester: {student.semester}");
+                    Console.WriteLine($"Marks: {student.marks}");   
+                    Console.WriteLine($"Attendance: {student.attendancePercentage}%");
+                    Console.WriteLine("===================================");
+                }
+            }
+            else if (option == 4)
+            {
+                Console.Write("Please enter Student ID to update: ");
+                string id = Console.ReadLine();
+
+                Student? existingStudent = sm.searchStudent(id);
+
+                if (existingStudent == null)
+                {
+                    Console.WriteLine("Student Not Found!!!");
+                    return;
+                }
+
+                Console.Write("Enter Student Name: ");
+                string name = Console.ReadLine();
+
+                int age;
+
+                while (true)
+                {
+                    Console.Write("Enter Student Age: ");
+
+                    if (int.TryParse(Console.ReadLine(), out age) && age >= 1 && age <= 60)
+                    {
+                        break;
+                    }
+
+                    Console.WriteLine("Invalid Age! Enter a value between 1 and 60.");
+                }
+
+                Console.Write("Enter Email: ");
+                string email = Console.ReadLine();
+
+                Console.Write("Enter Phone Number: ");
+                string phone = Console.ReadLine();
+
+                Console.Write("Enter Course: ");
+                string course = Console.ReadLine();
+
+                int semester;
+
+                while (true)
+                {
+                    Console.Write("Enter Semester: ");
+
+                    if (int.TryParse(Console.ReadLine(), out semester) &&
+                        semester >= 1 && semester <= 8)
+                    {
+                        break;
+                    }
+
+                    Console.WriteLine("Invalid Semester! Enter a value between 1 and 8.");
+                }
+
+                int marks;
+
+                while (true)
+                {
+                    Console.Write("Enter Marks: ");
+
+                    if (int.TryParse(Console.ReadLine(), out marks) &&
+                        marks >= 0 && marks <= 100)
+                    {
+                        break;
+                    }
+
+                    Console.WriteLine("Invalid Marks! Enter a value between 0 and 100.");
+                }
+
+                double attendancePercentage;
+
+                while (true)
+                {
+                    Console.Write("Enter Attendance Percentage: ");
+
+                    if (double.TryParse(
+                            Console.ReadLine(),
+                            out attendancePercentage) &&
+                        attendancePercentage >= 0 &&
+                        attendancePercentage <= 100)
+                    {
+                        break;
+                    }
+
+                    Console.WriteLine("Invalid Attendance! Enter a value between 0 and 100.");
+                }
+
+                Student student = new Student(
+                    id,
+                    name,
+                    age,
+                    email,
+                    phone,
+                    course,
+                    semester,
+                    marks,
+                    attendancePercentage
+                );
+
+                bool result = sm.updateStudent(id, student);
+
+                if (result)
+                {
+                    Console.WriteLine("Student Updated Successfully.");
+                    sm.saveStudents();
+                }
+                else
+                {
+                    Console.WriteLine("Student Update Failed.");
+                }
+            }
+        
         }
         static void Main(string[] args)
         {
