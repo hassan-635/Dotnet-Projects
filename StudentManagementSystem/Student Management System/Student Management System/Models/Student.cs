@@ -24,13 +24,13 @@ namespace Student_Management_System.Models
         [Range(0, 100, ErrorMessage = "Please Enter Attendance Percentage of Students")]
         public double attendancePercentage { get; set; }
 
-        public Student(string name, int age, string email, string phone, string studentId, string course, int semester, int marks, double attendacePercentage)
+        public Student(string studentId, string name, int age, string email, string phone, string course, int semester, int marks, double attendacePercentage)
         {
+            this.studentId = studentId;
             this.name = name;
             this.age = age;
             this.email = email;
             this.phone = phone;
-            this.studentId = studentId;
             this.course = course;
             this.semester = semester;
             this.marks = marks;

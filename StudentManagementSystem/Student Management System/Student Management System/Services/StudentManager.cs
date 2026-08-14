@@ -119,5 +119,49 @@ namespace Student_Management_System.Services
                 return false;
             }
         }
+
+        public bool loadStudents()
+        {
+            try
+            {
+                string folderPath = Path.Combine(AppContext.BaseDirectory, "Data");
+                string filePath = Path.Combine(folderPath, "students.txt");
+
+                if(!File.Exists(filePath))
+                {
+                    Console.WriteLine("File Not Found!!!");
+                    return false;
+                }
+
+                students.Clear();
+
+                string[] lines = File.ReadAllLines(filePath);
+                foreach(string line in lines)
+                {
+                    if(string.IsNullOrWhiteSpace(line))
+                    {
+                        continue;
+                    }
+
+                    string[] data = line.Split("|");
+
+                    if(data.Length != 9)
+                    {
+                        Console.WriteLine("Invalid Student Data!!!");
+                        continue;
+                    }
+
+                    Student student = new Student(data[0], data[1], int.Parse(data[2]), data[3], data[4], data[5], int.Parse(data[6]), int.Parse(data[7]), double.Parse(data[8]));
+                    students.Add(student);
+                }
+                Console.WriteLine("Data Loaded Successfully...");
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error while Loading Data : {ex.Message}");
+                return false;
+            }
+        }
     }
 }
