@@ -56,6 +56,23 @@ namespace Student_Management_System.Services
                 existingStudent.marks = student.marks;
                 existingStudent.attendancePercentage = student.attendancePercentage;
 
+                return true;
+            }
+        }
+
+        public bool deleteStudent(string studentId)
+        {
+            var existingStudent = students.FirstOrDefault(s => s.studentId == studentId);
+            
+            if (existingStudent == null)
+            {
+                return false;
+            }
+
+            else
+            {
+                students.Remove(existingStudent);
+                return true;
             }
         }
     }
