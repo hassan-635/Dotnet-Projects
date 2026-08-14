@@ -12,8 +12,8 @@ namespace Student_Management_System.Interfaces
         public Student? searchStudent(string studentId);
         public bool updateStudent(string studentId, Student student);
         public bool deleteStudent(string studentId);
-        public List<Student> showTopStudents(int count);
-        public List<Student> showEligibleStudents();
+        public List<Student>? showTopStudents(int count);
+        public List<Student>? showEligibleStudents();
         public bool saveStudents();
         public bool loadStudents();
     }
