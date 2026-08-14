@@ -7,12 +7,12 @@ namespace Student_Management_System.Interfaces
 {
     internal interface IStudentManager
     {
-        public void addStudent();
+        public void addStudent(Student student);
         public List<Student> showAllStudents();
-        public Student? searchStudent(int studentId);
-        public bool updateStudent(int studentId);
-        public bool deleteStudent(int studentId);
-        public List<Student> showTopStudents(int positions);
+        public Student? searchStudent(string studentId);
+        public bool updateStudent(string studentId, Student student);
+        public bool deleteStudent(string studentId);
+        public List<Student> showTopStudents(int count);
         public List<Student> showEligibleStudents();
         public bool saveStudents();
         public bool loadStudents();

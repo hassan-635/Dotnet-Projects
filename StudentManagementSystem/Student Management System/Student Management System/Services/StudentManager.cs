@@ -75,5 +75,14 @@ namespace Student_Management_System.Services
                 return true;
             }
         }
+
+        public List<Student>? showTopStudents(int count)
+        {
+            if (students.Count == 0)
+            {
+                return null;
+            }
+            else return students.OrderByDescending(s => s.marks).Take(count).ToList();
+        }
     }
 }
