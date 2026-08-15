@@ -40,6 +40,7 @@ namespace StudentManagementWebApp.Data
             ExistingStudent.Name = student.Name;
             ExistingStudent.Age = student.Age;
             ExistingStudent.Email = student.Email;
+            ExistingStudent.Phone = student.Phone;
             ExistingStudent.Course = student.Course;
             ExistingStudent.Semester = student.Semester;
             ExistingStudent.Marks = student.Marks;
