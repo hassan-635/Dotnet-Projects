@@ -43,7 +43,7 @@ namespace Student_Management_System.Services
         {
             var existingStudent = students.FirstOrDefault(s => s.studentId == studentId);
 
-            if(studentId == null)
+            if(existingStudent == null)
             {
                 return false;
             }
