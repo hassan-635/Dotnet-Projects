@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System;
-using Microsoft.EntityFrameworkCore;
 
-namespace StudentManagementWebApp.Models
-{    public class Student
+namespace StudentManagementWebApp.Models.ViewModels
+{
+    public class StudentFormViewModel
     {
         [Required(ErrorMessage = "Please Enter Student Id")]
         public string StudentId { get; set; }
@@ -12,7 +11,7 @@ namespace StudentManagementWebApp.Models
         [StringLength(20, MinimumLength = 2, ErrorMessage = "Please Enter name of length 2 to 20")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage ="Please Enter Age")]
+        [Required(ErrorMessage = "Please Enter Age")]
         [Range(15, 60, ErrorMessage = "Please Enter age between 15 to 60")]
         public int Age { get; set; }
 
