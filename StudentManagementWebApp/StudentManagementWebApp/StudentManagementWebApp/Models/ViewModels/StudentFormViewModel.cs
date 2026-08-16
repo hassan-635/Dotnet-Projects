@@ -21,7 +21,7 @@ namespace StudentManagementWebApp.Models.ViewModels
 
         [Required(ErrorMessage = "Please Enter Valid Phone Number")]
         [Phone]
-        [Range(11, 11, ErrorMessage = "Please enter phone number")]
+        [Range(8, 11, ErrorMessage = "Please enter phone number")]
         public string Phone { get; set; }
 
         [Required(ErrorMessage = "Please Enter Course")]

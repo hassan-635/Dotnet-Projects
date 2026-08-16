@@ -1,0 +1,70 @@
+﻿@model StudentManagementWebApp.Models.ViewModels.StudentFormViewModel;
+@{
+    ViewData["Title"] = "Create Student";
+}
+
+<h1>Create Student</h1>
+
+<form asp-controller="Student" asp-action="Create" method="post">
+
+    <div>
+        <label asp-for="StudentId"></label>
+        <input asp-for="StudentId" />
+        <span asp-validation-for="StudentId"></span>
+    </div>
+
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+
+    <div>
+        <label asp-for="Age"></label>
+        <input asp-for="Age" type="number" />
+        <span asp-validation-for="Age"></span>
+    </div>
+
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" type="email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <div>
+        <label asp-for="Phone"></label>
+        <input asp-for="Phone" />
+        <span asp-validation-for="Phone"></span>
+    </div>
+
+    <div>
+        <label asp-for="Course"></label>
+        <input asp-for="Course" />
+        <span asp-validation-for="Course"></span>
+    </div>
+
+    <div>
+        <label asp-for="Semester"></label>
+        <input asp-for="Semester" type="number" />
+        <span asp-validation-for="Semester"></span>
+    </div>
+
+    <div>
+        <label asp-for="Marks"></label>
+        <input asp-for="Marks" type="number" />
+        <span asp-validation-for="Marks"></span>
+    </div>
+
+    <div>
+        <label asp-for="AttendancePercentage"></label>
+        <input asp-for="AttendancePercentage" type="number" step="0.01" />
+        <span asp-validation-for="AttendancePercentage"></span>
+    </div>
+
+    <button type="submit">Add Student</button>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
