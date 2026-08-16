@@ -1,7 +1,15 @@
+using StudentManagementWebApp.Data;
+using StudentManagementWebApp.Services;
+using StudentManagementWebApp.Services.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<IStudentRepository, InMemoryStudentRepository>();
+builder.Services.AddSingleton<IStudentService, StudentService>();
+
 
 var app = builder.Build();
 

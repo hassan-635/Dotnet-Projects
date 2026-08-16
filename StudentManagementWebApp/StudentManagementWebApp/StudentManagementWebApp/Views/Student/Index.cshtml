@@ -1,0 +1,29 @@
+﻿@model IEnumerable<StudentManagementWebApp.Models.Student>
+<h1>Students</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Course</th>
+            <th>Marks</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.StudentId</td>
+                <td>@student.Name</td>
+                <td>@student.Email</td>
+                <td>@student.Course</td>
+                <td>@student.Marks</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@{
+}

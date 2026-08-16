@@ -8,7 +8,47 @@ namespace StudentManagementWebApp.Data
 {
     public class InMemoryStudentRepository : IStudentRepository
     {
-        private List<Student> students= new List<Student>();
+        private List<Student> students = new List<Student>
+        {
+            new Student
+            {
+                StudentId = "ST001",
+                Name = "Ali Khan",
+                Age = 20,
+                Email = "ali@example.com",
+                Phone = "03001234567",
+                Course = "Computer Science",
+                Semester = 4,
+                Marks = 82,
+                AttendancePercentage = 88
+            },
+
+            new Student
+            {
+                StudentId = "ST002",
+                Name = "Ahmed Raza",
+                Age = 21,
+                Email = "ahmed@example.com",
+                Phone = "03111234567",
+                Course = "Software Engineering",
+                Semester = 6,
+                Marks = 74,
+                AttendancePercentage = 79
+            },
+
+            new Student
+            {
+                StudentId = "ST003",
+                Name = "Hamza Ali",
+                Age = 19,
+                Email = "hamza@example.com",
+                Phone = "03221234567",
+                Course = "Computer Science",
+                Semester = 2,
+                Marks = 91,
+                AttendancePercentage = 94
+            }
+        };
         public IEnumerable<Student> GetAll()
         {
             return students;
