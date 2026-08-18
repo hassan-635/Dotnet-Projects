@@ -26,6 +26,11 @@ namespace Calculators.Controllers
         [HttpPost]
         public IActionResult Calculate(BasicCalculatorViewModel model)
         {
+            if(!ModelState.IsValid)
+            {
+                return View("Basic", model);
+            }
+
             if (model.Operation == "+")
                 model.Result = model.Number1 + model.Number2;
             else if (model.Operation == "-")
