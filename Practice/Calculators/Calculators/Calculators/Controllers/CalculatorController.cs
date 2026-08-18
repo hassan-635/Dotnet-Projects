@@ -54,11 +54,34 @@ namespace Calculators.Controllers
             if (BMI < 18.5M)
                 model.Result = "Underweight";
             else if (BMI > 18.5M && BMI < 24.9M)
+                model.Result = "Normal";
+            else if (BMI >= 25 && BMI <= 29.9M)
                 model.Result = "Overweight";
             else if (BMI >= 30)
                 model.Result = "Obese";
 
             return View("BMI", model);
+        }
+
+        [HttpPost]
+        public IActionResult CalculateLoan(LoanCalculatorViewModel model)
+        {
+            double baseRate = (double)(1m + model.InterestRate);
+            double powDouble = Math.Pow(baseRate, (double)model.TotalMonthlyPayments);
+            decimal pow = (decimal)powDouble;
+
+            decimal numerator = model.LoanAmount * pow;
+            decimal denominator = pow - 1m;
+            if (denominator == 0m)
+            {
+                model.EMI = 0m;
+            }
+            else
+            {
+            model.EMI = numerator / denominator;
+            }
+
+            return View("Loan", model);
         }
     }
 }

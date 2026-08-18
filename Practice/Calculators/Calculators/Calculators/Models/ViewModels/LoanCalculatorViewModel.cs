@@ -5,6 +5,7 @@
 
         public decimal LoanAmount { get; set; }
         public decimal InterestRate { get; set; }
-        public int LoanDuration { get; set; }
+        public int TotalMonthlyPayments { get; set; }
+        public decimal EMI { get; set; }
     }
 }

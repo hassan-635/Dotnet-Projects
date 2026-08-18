@@ -1,8 +1,23 @@
-﻿
-@{
-}
+﻿@model Calculators.Models.ViewModels.LoanCalculatorViewModel;
 
-
-<div>
-    <h1>Loan Calculator</h1>
-</div>
+<form asp-controller="Calculator" asp-action="CalculateLoan" method="post">
+    <div>
+        <label asp-for="LoanAmount">Principal Loan Amount : </label>
+        <input asp-for="LoanAmount"/>
+    </div>
+    <div>
+        <label asp-for="InterestRate">Monthly Interest Rate : </label>
+        <input asp-for="InterestRate"/>
+    </div>
+    <div>
+        |<label asp-for="TotalMonthlyPayments">Total Number of Monthly p[ayments : </label>
+        <input asp-for="TotalMonthlyPayments" type="number"/>
+    </div>
+    <div>
+        <button type="submit">Calculate</button>
+    </div>
+    <div>
+        <span>Result : </span>
+        <span>EMI : @Model.EMI</span>
+    </div>
+</form>
