@@ -1,7 +1,31 @@
-﻿
-@{
-}
+﻿@model Calculators.Models.ViewModels.BasicCalculatorViewModel;
 
-<div>
-    <h1>Basic Calculator</h1>
-</div>
+<form asp-controller="Calculator" asp-action="Calculate" method="post">
+
+    <div>
+        <label asp-for="Number1">First Number : </label>
+        <input asp-for="Number1" />
+    </div>
+    <div>
+        <label asp-for="Number2">Second Number : </label>
+        <input asp-for="Number2" />
+    </div>
+    <div>
+        <label asp-for="Operation">Operatiom</label>
+        <select asp-for="Operation">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+    </div>
+    <div>
+        <button type="submit">Calculate</button>
+    </div>
+    <div>
+        <p>
+            Result: @Model.Result
+        </p>
+    </div>
+
+</form>

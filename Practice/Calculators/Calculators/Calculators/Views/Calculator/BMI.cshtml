@@ -1,8 +1,22 @@
-﻿
-@{
-}
+﻿@model Calculators.Models.ViewModels.BMICalculatorViewModel;
 
+<form asp-controller="Calculator" asp-action="CalculateBMI" method="post">
 
-<div>
-    <h1>BMI Calculator</h1>
-</div>
+    <div>
+        <label asp-for="Weight">Weight in KG:</label>
+        <input asp-for="Weight" />
+    </div>
+    <div>
+        <label asp-for="Height">Height in Centimeter : </label>
+        <input asp-for="Height" />
+    </div>
+    <div>
+        <p>
+            Result : You are @Model.Result
+        </p>
+    </div>
+    <div>
+        <button type="submit">Calculate</button>
+    </div>
+
+</form>
