@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudentManagementForLearningDTOs.Models
 {
-    [Index(nameof(id), IsUnique = true)]
+    [Index(nameof(Id), IsUnique = true)]
     public class StudentModel
     {
         [Required]
-        public int id { get; set; }
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

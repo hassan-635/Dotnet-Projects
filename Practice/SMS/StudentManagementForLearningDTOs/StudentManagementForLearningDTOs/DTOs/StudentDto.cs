@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace StudentManagementForLearningDTOs.DTOs
 {
-    [Index(nameof(id), IsUnique = true)]
+    [Index(nameof(Id), IsUnique = true)]
     public class StudentDto
     {
         [Required]
-        public int id { get; set; }
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         public string Department { get; set; }
