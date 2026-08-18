@@ -10,9 +10,9 @@
     <header>
            <h1>Calculators</h1>
             <nav>
-                <a href="basicCalculator">Basic Calculator</a>
-                <a href="bmiCalculator">BMI Calculator</a>
-                <a href="loanCalculator">Loan Calculator</a>
+                <a asp-controller="Calculator" asp-action="Basic">Basic Calculator</a>
+                <a asp-controller="Calculator" asp-action="BMI">BMI Calculator</a>
+                <a asp-controller="Calculator" asp-action="Loan">Loan Calculator</a>
             </nav>
         
     </header>
@@ -23,7 +23,7 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        
+        <p>&copy; 2026 - Calculators</p>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
