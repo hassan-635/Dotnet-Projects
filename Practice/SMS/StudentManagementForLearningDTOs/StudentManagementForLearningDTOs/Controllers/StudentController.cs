@@ -59,6 +59,12 @@ namespace StudentManagementForLearningDTOs.Controllers
         }
 
         [HttpGet]
+        public IActionResult ViewStudentDetails()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public IActionResult ViewStudentDetails(int id)
         {
             var sm = students.FirstOrDefault(student => student.Id == id);
