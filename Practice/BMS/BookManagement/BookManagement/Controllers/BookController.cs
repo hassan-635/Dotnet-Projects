@@ -1,6 +1,7 @@
 ﻿using BookManagement.DTOs;
 using BookManagement.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BookManagement.Controllers
 {
@@ -51,6 +52,12 @@ namespace BookManagement.Controllers
         }
 
         [HttpGet]
+        public IActionResult Update()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public IActionResult Update(int id)
         {
             var Book = _bookService.GetById(id);
@@ -60,6 +67,21 @@ namespace BookManagement.Controllers
             }
 
             return View(Book);
+        }
+
+        [HttpPost]
+        public IActionResult Update(BookDto book)
+        {
+            if(!ModelState.IsValid)
+                return View(book);
+
+            var existingBook = _bookService.GetById(book.Id);
+
+            if (existingBook == null)
+                return NotFound();
+
+            _bookService.Update(book);
+            return RedirectToAction("Dashboard");
         }
 
     }
