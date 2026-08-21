@@ -4,7 +4,7 @@ namespace BookManagement.Services
 {
     public class BookService
     {
-        public List<BookDto> books = new List<BookDto>();
+        private static List<BookDto> books = new List<BookDto>();
         public List<BookDto> GetAll()
         {
             return books;
@@ -12,8 +12,7 @@ namespace BookManagement.Services
 
         public BookDto? GetById(int Id)
         {
-            BookDto book = new BookDto();
-            return book;
+            return books.FirstOrDefault(book => book.Id == Id);
         }
 
         public void Add(BookDto dto)
