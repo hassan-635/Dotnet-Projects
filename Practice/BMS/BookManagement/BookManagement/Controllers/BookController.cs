@@ -70,7 +70,7 @@ namespace BookManagement.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(BookDto book)
+        public IActionResult UpdateForm(BookDto book)
         {
             if(!ModelState.IsValid)
                 return View(book);

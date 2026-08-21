@@ -1,0 +1,48 @@
+﻿@model BookManagement.DTOs.BookDto
+
+<h1>Update Book</h1>
+
+<form asp-controller="Book" asp-action="UpdateForm" method="post">
+
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <label asp-for="Title"></label>
+
+        <input asp-for="Title" />
+
+        <span asp-validation-for="Title"></span>
+    </div>
+
+    <br />
+
+    <div>
+        <label asp-for="Author"></label>
+
+        <input asp-for="Author" />
+
+        <span asp-validation-for="Author"></span>
+    </div>
+
+    <br />
+
+    <div>
+        <label asp-for="Price"></label>
+
+        <input asp-for="Price" />
+
+        <span asp-validation-for="Price"></span>
+    </div>
+
+    <br />
+
+    <button type="submit">
+        Update Book
+    </button>
+
+</form>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
