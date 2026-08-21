@@ -41,7 +41,13 @@ namespace BookManagement.Controllers
         [HttpPost]
         public IActionResult GetById(int id)
         {
-            return View();
+            var Book = _bookService.GetById(id);
+
+            if(Book == null)
+            {
+                return View("GetByIdPost", null);
+            }
+            return View("GetByIdPost", Book);
         }
     }
 }
