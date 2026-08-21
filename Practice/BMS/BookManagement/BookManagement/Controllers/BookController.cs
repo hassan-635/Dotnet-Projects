@@ -49,5 +49,18 @@ namespace BookManagement.Controllers
             }
             return View("GetByIdPost", Book);
         }
+
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            var Book = _bookService.GetById(id);
+            if(Book == null)
+            {
+                return NotFound();
+            }
+
+            return View(Book);
+        }
+
     }
 }
