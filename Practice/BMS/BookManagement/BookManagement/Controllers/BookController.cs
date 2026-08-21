@@ -44,17 +44,13 @@ namespace BookManagement.Controllers
         {
             var Book = _bookService.GetById(id);
 
-            if(Book == null)
+            if (Book == null)
             {
-                return View("GetByIdPost", null);
+                ModelState.AddModelError(string.Empty, "Book not found");
+                return View("GetById");
             }
-            return View("GetByIdPost", Book);
-        }
 
-        [HttpGet]
-        public IActionResult Update()
-        {
-            return View();
+            return View("UpdateForm", Book);
         }
 
         [HttpGet]
@@ -66,7 +62,7 @@ namespace BookManagement.Controllers
                 return NotFound();
             }
 
-            return View(Book);
+            return View("UpdateForm", Book);
         }
 
         [HttpPost]
