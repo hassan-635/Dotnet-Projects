@@ -2,7 +2,7 @@
 
 namespace ExpenseTracker.Controllers
 {
-    public class ExpenseController1 : Controller
+    public class ExpenseController : Controller
     {
         public IActionResult Dashboard()
         {
