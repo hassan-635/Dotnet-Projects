@@ -31,5 +31,17 @@ namespace BookManagement.Controllers
             _bookService.Add(book);
             return RedirectToAction("Dashboard");
         }
+
+        [HttpGet]
+        public IActionResult GetById()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult GetById(int id)
+        {
+            return View();
+        }
     }
 }

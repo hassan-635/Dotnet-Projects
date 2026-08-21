@@ -1,0 +1,8 @@
+﻿@model BookManagement.DTOs.BookDto;
+
+<h1>Get Book By Id</h1>
+
+<form asp-controller="Book" asp-action="GetById" method="post">
+    <label asp-for="Id">Enter Id Here : </label>
+    <input asp-for="Id"/>
+</form>
