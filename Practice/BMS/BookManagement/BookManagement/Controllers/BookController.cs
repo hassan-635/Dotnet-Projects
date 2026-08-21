@@ -1,4 +1,5 @@
-﻿using BookManagement.Services;
+﻿using BookManagement.DTOs;
+using BookManagement.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookManagement.Controllers
@@ -16,6 +17,12 @@ namespace BookManagement.Controllers
         {
             var books = _bookService.GetAll();
             return View(books);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
         }
     }
 }

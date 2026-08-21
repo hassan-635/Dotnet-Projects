@@ -1,0 +1,18 @@
+﻿@model BookManagement.DTOs.BookDto;
+
+<h1>Add Book</h1>
+
+<form asp-action="Create" asp-controller="Book" method="post">
+    <div>
+        <label asp-for="Title">Title</label>
+        <input asp-for="Title" />
+    </div>
+    <div>
+        <label asp-for="Author">Author</label>
+        <input asp-for="Author" />
+    </div>
+    <div>
+        <label asp-for="Price">Price</label>
+        <input asp-for="Price" />
+    </div>
+</form>
