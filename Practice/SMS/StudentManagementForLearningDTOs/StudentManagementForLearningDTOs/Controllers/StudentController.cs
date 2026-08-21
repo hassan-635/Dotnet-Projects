@@ -20,17 +20,35 @@ namespace StudentManagementForLearningDTOs.Controllers
             return View(studentDtos);
         }
 
+        [HttpGet]
+        public IActionResult AddStudent()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddStudent(CreateStudentDto dto)
+        {
+            StudentModel student = new StudentModel();
+
+            student.Id = students.Count + 1;
+            student.Name = dto.Name;
+            student.Age = dto.Age;
+            student.Email = dto.Email;
+            student.Department = dto.Department;
+            student.Semester = dto.Semester;
+
+            students.Add(student);
+
+            return RedirectToAction("Index");
+        }
+
         public IActionResult ViewAllStudents()
         {
             return View();
         }
 
         public IActionResult ViewStudentDetails()
-        {
-            return View();
-        }
-
-        public IActionResult AddStudent()
         {
             return View();
         }
