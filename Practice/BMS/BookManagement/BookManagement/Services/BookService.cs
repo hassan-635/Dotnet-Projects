@@ -23,12 +23,28 @@ namespace BookManagement.Services
 
         public void Update(BookDto book)
         {
+            var existingBook = books.FirstOrDefault(b => b.Id == book.Id);
 
+            if(existingBook == null)
+            {
+                return;
+            }
+
+            existingBook.Title = book.Title;
+            existingBook.Author = book.Author;
+            existingBook.Price = book.Price;
         }
 
         public void Delete(int id)
         {
+            var existingBook = books.FirstOrDefault(b => b.Id == id);
 
+            if(existingBook == null)
+            {
+                return;
+            }
+
+            books.Remove(existingBook);
         }
     }
 }
