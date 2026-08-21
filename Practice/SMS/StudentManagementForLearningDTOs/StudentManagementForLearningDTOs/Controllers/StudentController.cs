@@ -45,7 +45,15 @@ namespace StudentManagementForLearningDTOs.Controllers
 
         public IActionResult ViewAllStudents()
         {
-            return View();
+            List<StudentDto> studentDtos = students.Select(student => new StudentDto
+            {
+                Id = student.Id,
+                Name = student.Name,
+                Department = student.Department,
+                Semester = student.Semester
+            }).ToList();
+
+            return View(studentDtos);
         }
 
         public IActionResult ViewStudentDetails()
