@@ -15,12 +15,13 @@ namespace BookManagement.Services
             return books.FirstOrDefault(book => book.Id == Id);
         }
 
-        public void Add(BookDto dto)
+        public void Add(BookDto book)
         {
-
+            book.Id = books.Count + 1;
+            books.Add(book);
         }
 
-        public void Update(BookDto dto)
+        public void Update(BookDto book)
         {
 
         }
