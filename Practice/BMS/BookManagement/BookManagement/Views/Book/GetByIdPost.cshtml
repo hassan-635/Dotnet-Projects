@@ -1,12 +1,29 @@
 ﻿@model BookManagement.DTOs.BookDto;
 
-<h1>Searched Book</h1>
+<h1>Book Details</h1>
 
-   <table>
+@if(Model == null)
+{
+    <p>Book Not Found...</p>
+}
+else
+{
+    <table border="1">
         <thead>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Price</th>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Price</th>
+            </tr>
         </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Id</td>
+                <td>@Model.Title</td>
+                <td>@Model.Author</td>
+                <td>@Model.Price</td>
+            </tr>
+        </tbody>
     </table>
+}
