@@ -2,7 +2,7 @@
 
 namespace BookManagement.Services
 {
-    public class BookService
+    public class BookService : IBookService
     {
         private static List<BookDto> books = new List<BookDto>();
         public List<BookDto> GetAll()
