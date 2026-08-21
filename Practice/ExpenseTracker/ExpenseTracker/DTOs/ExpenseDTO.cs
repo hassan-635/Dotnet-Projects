@@ -1,6 +1,6 @@
-﻿namespace ExpenseTracker.Models
+﻿namespace ExpenseTracker.DTOs
 {
-    public class Expense
+    public class ExpenseDTO
     {
         public int Id { get; set; }
         public string Title { get; set; }
