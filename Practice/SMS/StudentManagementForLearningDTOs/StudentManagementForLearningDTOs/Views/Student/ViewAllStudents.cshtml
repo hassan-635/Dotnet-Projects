@@ -1,0 +1,15 @@
+﻿@model List<StudentManagementForLearningDTOs.DTOs.StudentDto>
+
+<h1>All Students</h1>
+
+@foreach(var student in Model)
+{
+    <div>
+        <h3>Id: @student.Id</h3>
+        <p>Name: @student.Name</p>
+        <p>Department: @student.Department</p>
+        <p>Semester: @student.Semester</p>
+        <hr />
+    </div>
+}
+    

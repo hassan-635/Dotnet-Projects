@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentManagementForLearningDTOs.Models;
 using StudentManagementForLearningDTOs.DTOs;
+using System.Collections.Immutable;
 
 namespace StudentManagementForLearningDTOs.Controllers
 {
@@ -43,6 +44,7 @@ namespace StudentManagementForLearningDTOs.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
         public IActionResult ViewAllStudents()
         {
             List<StudentDto> studentDtos = students.Select(student => new StudentDto
@@ -56,9 +58,17 @@ namespace StudentManagementForLearningDTOs.Controllers
             return View(studentDtos);
         }
 
-        public IActionResult ViewStudentDetails()
+        [HttpGet]
+        public IActionResult ViewStudentDetails(int id)
         {
-            return View();
+            var sm = students.FirstOrDefault(student => student.Id == id);
+
+            if(sm == null)
+            {
+                return NotFound();
+            }
+
+            return View(sm);
         }
 
         public IActionResult EditStudent()
