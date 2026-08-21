@@ -24,5 +24,12 @@ namespace BookManagement.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Create(BookDto book)
+        {
+            _bookService.Add(book);
+            return RedirectToAction("Dashboard");
+        }
     }
 }
