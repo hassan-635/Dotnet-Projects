@@ -10,6 +10,6 @@ namespace ExpenseTracker.Services
         public bool UpdateExpense(ExpenseDTO Expense);
         public bool DeleteExpense(int Id);
         public decimal CalculateTotal();
-        public decimal GetCategoryTotal(string category);
+        public decimal GetCategoryTotal(string Category);
     }
 }

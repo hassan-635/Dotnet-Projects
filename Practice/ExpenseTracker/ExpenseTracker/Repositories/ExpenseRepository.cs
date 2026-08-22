@@ -2,7 +2,7 @@
 
 namespace ExpenseTracker.Repositories
 {
-    public class ExpenseRepository
+    public class ExpenseRepository : IExpenseRepository
     {
         private List<ExpenseDTO> expenses = new List<ExpenseDTO>();
 
