@@ -1,0 +1,25 @@
+﻿@model ExpenseTracker.DTOs.DeleteExpenseDto
+
+<h1>Delete Expense</h1>
+
+<form asp-action="Delete" method="post">
+
+    <div>
+        <label asp-for="Id">Enter Expense ID</label>
+
+        <input asp-for="Id" type="number" />
+
+        <span asp-validation-for="Id"></span>
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-danger">
+        Delete Expense
+    </button>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

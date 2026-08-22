@@ -1,0 +1,32 @@
+﻿@model ExpenseTracker.DTOs.ExpenseDTO
+
+<h1>Expense Details</h1>
+
+@if (Model == null)
+{
+    <p>Expense not found.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>@Model.Id</td>
+                <td>@Model.Title</td>
+                <td>@Model.Amount</td>
+                <td>@Model.Category</td>
+                <td>@Model.Date</td>
+            </tr>
+        </tbody>
+    </table>
+}

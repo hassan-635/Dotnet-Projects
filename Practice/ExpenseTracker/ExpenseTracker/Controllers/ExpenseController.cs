@@ -1,4 +1,4 @@
-﻿using ExpenseTracker.DTOs;
+using ExpenseTracker.DTOs;
 using ExpenseTracker.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +31,8 @@ namespace ExpenseTracker.Controllers
         {
             if(!ModelState.IsValid)
                 return View(Expense);
+
+            _expenseService.AddExpense(Expense);
             return RedirectToAction("Dashboard");
         }
 
@@ -53,5 +55,38 @@ namespace ExpenseTracker.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult UpdateExpense(int Id)
+        {
+            var expense = _expenseService.GetExpenseById(Id);
+            if(expense == null)
+                return NotFound();
+            return View("UpdateForm", expense);
+        }
+        [HttpPost]
+        public IActionResult UpdateForm(ExpenseDTO Expense)
+        {
+            if(!ModelState.IsValid)
+                return View(Expense);
+
+            _expenseService.UpdateExpense(Expense);
+            return RedirectToAction("Dashboard");
+        }
+
+        [HttpGet]
+        public IActionResult Delete()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var expense = _expenseService.GetExpenseById(id);
+            if (expense == null)
+                throw new Exception("Expense Not Found");
+            _expenseService.DeleteExpense(id);
+            return RedirectToAction("Dashboard");
+        }
     }
 }
