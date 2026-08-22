@@ -1,4 +1,4 @@
-﻿using ExpenseTracker.DTOs;
+using ExpenseTracker.DTOs;
 
 namespace ExpenseTracker.Repositories
 {
@@ -18,6 +18,7 @@ namespace ExpenseTracker.Repositories
 
         public bool Add(ExpenseDTO Expense)
         {
+            Expense.Id = expenses.Count > 0 ? expenses.Max(e => e.Id) + 1 : 1;
             expenses.Add(Expense);
             return true;
         }
