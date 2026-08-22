@@ -1,0 +1,38 @@
+﻿@model ExpenseTracker.DTOs.ExpenseDTO
+
+<h1>Add Expense</h1>
+<hr />
+
+<form asp-controller="Expense" asp-action="AddExpense" method="post">
+    <div>
+        <label asp-for="Title">Title : </label>
+        <input asp-for="Title" />
+        <span asp-validation-for="Title"></span>
+    </div>
+    <br />
+    <div>
+        <label asp-for="Amount"></label>
+        <input asp-for="Amount" />
+        <span asp-validation-for="Amount"></span>
+    </div>
+    <br />
+    <div>
+        <label asp-for="Category"></label>
+        <input asp-for="Category" />
+        <span asp-validation-for="Category"></span>
+    </div>
+    <br />
+    <div>
+        <label asp-for="Date"></label>
+        <input asp-for="Date" type="date" />
+        <span asp-validation-for="Date"></span>
+    </div>
+    <br />
+    <button type="submit">
+        Add Expense
+    </button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
